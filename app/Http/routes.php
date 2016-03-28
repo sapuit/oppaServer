@@ -70,7 +70,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('header/form', 'Header@getForm');
 	Route::post('header/post', 'Header@store');
 	Route::get('header/show', 'Header@display');
+	Route::post('test', 'Prescription@testUpload');
 
+	
 });
 
 

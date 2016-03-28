@@ -44,6 +44,38 @@ class Header extends Controller {
  		}
  	}
 
+ 	public function testUpload(Request $data){
+
+ 		// $validation = Validator::make($data->all(), array(
+ 		// 	'title' => 'required',
+ 		// 	'sub_title' => 'required',
+ 		// 	'image' => 'required|mimes:jpg,jpeg,JPG|max:2000',
+ 		// 	));
+ 		// if ($validation->fails()) {
+
+ 		// 	return Redirect::to('header/form')->withErrors($validation);
+ 		// } else {
+ 			
+ 		// 	$logo	= $data->file('image');
+ 		// 	$upload = 'uploads/prescription';
+ 		// 	$filename = $logo->getClientOriginalName();
+ 		// 	$success = $logo->move($upload, $filename);
+
+ 		// 	if ($success) {
+ 					# code...
+	 			$table = new Headers;
+	 			$table->title = $data->Input('title');
+	 			$table->sub_title = $data->Input('sub_title');
+	 			$table->image = $filename;
+	 			$table->save();
+	 			// print_r($table);exit();
+	 			return "OK";
+ 			// }	
+ 		// }
+
+ 		// return "Error";
+ 	}
+
  	public function display(){
 
 	 		$model = Headers::all();

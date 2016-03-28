@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Model\Prescriptions;
+use App\Model\Drug;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
@@ -50,19 +51,71 @@ class Prescription extends Controller
                 $table->total = $request->input('total') ;
                 $table->image = $filename;
                 $table->save();
+                
+                $drug = new Drug([
+                    'name' => 'Paradon',
+                    'quantity' => '20',
+                    'cost' => '20']);
+                $drug = $table->drugs()->save($drug);
+
+                $drug = new Drug([
+                    'name' => 'Paradon extra',
+                    'quantity' => '10',
+                    'cost' => '10']);
+                $drug = $table->drugs()->save($drug);
+
+                // $table->save();
                 // print_r($table);exit();
                 // return Redirect::to('prescription')->with('success','Data submitted');
+
+                
                 return Redirect::to('prescription');
             }   
         }
     }
 
+    public function testUpload(Request $request){
+
+        
+        $table = new Prescriptions;
+        $target_Path = "uploads/prescription/";
+        $imgname = $request->input('phone').'_'.$request->input('email').'.jpg';
+        $target_Path = $target_Path.$imgname;
+        $imsrc = base64_decode($request->input('image'));
+        $fp = fopen($target_Path, 'w');
+        fwrite($fp, $imsrc);
+        if(fclose($fp)){
+            echo "Tải hình thành công";
+        }else{
+            echo "Tải hình thất bại";
+        }
+        $table->name = $request->input('name');
+        $table->image = $imgname;
+        $table->phone = $request->input('phone');
+        $table->addr = $request->input('addr');
+        $table->email = $request->input('email');
+        $table->status = $request->input('status') ;
+        $table->total = $request->input('total') ;
+
+       
+
+        $table->save(); 
+        // print_r($table);exit();
+        // return Redirect::to('prescription')->with('success','Data submitted');
+        return "Successfully Uploaded";
+        //     }   
+        // }
+    }
+
     public function update(){
 
-        $user = Prescriptions::first();
-        $user->title = 'sap';
-        $user->save();
-        $user = Prescriptions::all();
+        // $user = Prescriptions::first();
+        // $user->title = 'sap';
+        // $user->save();
+        // $user = Prescriptions::all();
+
+        DB::collection('prescriptions')->where('name', 'John')
+                       ->update('pre', ['status' => true]);
         return $user;
     }
 
