@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Model\Prescriptions;
-use App\Model\Drug;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
@@ -17,10 +16,17 @@ class Prescription extends Controller
 {
 	public function showAll()
 	{
-		$model = Prescriptions::all();
+		$model = Prescriptions::where('status', '=', "0")->get();
         // return $model;
-        return view('prescription.show', compact('model'));
+        return view('prescription.don-thuoc-moi', compact('model'));
 	}
+
+//hien thi mot toa thuoc
+    public function showItem($id)
+    {
+        $model = Prescriptions::find($id);
+        return view('prescription.show-toa', compact('model'));
+    }
 
     public function insertForm(){
         return view('prescription.insert');
@@ -47,83 +53,41 @@ class Prescription extends Controller
                 $table->phone = $request->input('phone');
                 $table->addr = $request->input('addr');
                 $table->email = $request->input('email');
-                $table->status = $request->input('status') ;
+                // $table->status = $request->input('status') ;
+                $table->status = "0" ;
+                $table->maBn = "001" ;
                 $table->total = $request->input('total') ;
                 $table->image = $filename;
                 $table->save();
-                
-                $drug = new Drug([
-                    'name' => 'Paradon',
-                    'quantity' => '20',
-                    'cost' => '20']);
-                $drug = $table->drugs()->save($drug);
-
-                $drug = new Drug([
-                    'name' => 'Paradon extra',
-                    'quantity' => '10',
-                    'cost' => '10']);
-                $drug = $table->drugs()->save($drug);
-
-                // $table->save();
                 // print_r($table);exit();
                 // return Redirect::to('prescription')->with('success','Data submitted');
-
-                
                 return Redirect::to('prescription');
             }   
         }
     }
 
-    public function testUpload(Request $request){
-
-        
-        $table = new Prescriptions;
-        $target_Path = "uploads/prescription/";
-        $imgname = $request->input('phone').'_'.$request->input('email').'.jpg';
-        $target_Path = $target_Path.$imgname;
-        $imsrc = base64_decode($request->input('image'));
-        $fp = fopen($target_Path, 'w');
-        fwrite($fp, $imsrc);
-        if(fclose($fp)){
-            echo "Tải hình thành công";
-        }else{
-            echo "Tải hình thất bại";
+    public function update($id){
+        try {
+            $user = Prescriptions::find($id);
+            $user->status = '1';
+            $user->save();
+            return Redirect::to('don-thuoc-moi');
+        } catch (Exception $e) {
+            return "Thao tác thất bạn!";
         }
-        $table->name = $request->input('name');
-        $table->image = $imgname;
-        $table->phone = $request->input('phone');
-        $table->addr = $request->input('addr');
-        $table->email = $request->input('email');
-        $table->status = $request->input('status') ;
-        $table->total = $request->input('total') ;
-
-       
-
-        $table->save(); 
-        // print_r($table);exit();
-        // return Redirect::to('prescription')->with('success','Data submitted');
-        return "Successfully Uploaded";
-        //     }   
-        // }
+        
     }
 
-    public function update(){
+    public function delete($id){
 
-        // $user = Prescriptions::first();
-        // $user->title = 'sap';
-        // $user->save();
-        // $user = Prescriptions::all();
-
-        DB::collection('prescriptions')->where('name', 'John')
-                       ->update('pre', ['status' => true]);
-        return $user;
-    }
-
-    public function delete(){
-
-        $user = Prescriptions::first();
-        $user->delete();
-        $user = Prescriptions::all();
-        return $user;
+        try {
+            $user = Prescriptions::find($id);
+            $user->delete();
+            return Redirect::to('/don-thuoc-moi');
+        } catch (Exception $e) {
+            return "Xóa không thành công!";
+        }
+        
+        
     }
 }

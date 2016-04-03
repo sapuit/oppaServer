@@ -15378,3 +15378,33 @@ Stack trace:
 [2016-03-27 15:37:07] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'Drug' not found' in C:\xampp\htdocs\oppa\vendor\jenssegers\mongodb\src\Jenssegers\Mongodb\Eloquent\Model.php:103
 Stack trace:
 #0 {main}  
+[2016-04-02 01:51:49] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:53:57] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:54:00] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:54:03] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:58:54] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:58:56] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:58:56] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:58:59] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:59:16] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
+[2016-04-03 08:59:19] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'MongoDB\Driver\Manager' not found' in C:\xampp\htdocs\oppaServer\vendor\mongodb\mongodb\src\Client.php:56
+Stack trace:
+#0 {main}  
