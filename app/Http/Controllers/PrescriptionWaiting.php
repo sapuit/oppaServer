@@ -5,6 +5,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Model\Prescriptions;
 use App\Http\Requests;
+use App\Model\Drug;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
 use Illuminate\Support\Facades\Validator; 
@@ -43,10 +44,28 @@ class PrescriptionWaiting extends Controller
                 $id = $data->Input('id');
                 $model = Prescriptions::find($id);
                 $model->status = '2';
+                $arrayDrug = json_decode($data -> Input('arrayDrug'));
+                foreach ($arrayDrug as $value)
+                {
+                    $drug = new Drug(['name' => $value->name,
+                    'quantity' => $value->quantity,
+                    'cost' => $value->cost
+                    ]);
+                    $drug = $model->drugs()->save($drug);
+                }
                 $model->save();
                 return Redirect::to('/cho-xu-ly');
-                // return $data->Input('submitTotal');
-
+                // return $a = json_decode($data -> Input('arrayDrug'));
+                // return $a[0]["quantity"];
+                // return = $arrayDrug;
+//                 $json = '[
+// { "firstName":"John" , "lastName":"Doe" }, 
+// { "firstName":"Anna" , "lastName":"Smith" }, 
+// { "firstName":"Peter" , "lastName":"Jones" }
+// ]';
+// return $json_decoded = json_decode($json);
+// $data = var_dump($json_decoded);
+// return $json_decoded[0]["lastName"];
             } catch (Exception $e) {
                 return 'Lỗi database';
             }
@@ -97,7 +116,7 @@ class PrescriptionWaiting extends Controller
     public function update($id){
 
         $user = Prescriptions::find($id);
-        $user->status = '1';
+        $user->status = '2';
         $user->save();
         return $user;
     }
@@ -107,7 +126,7 @@ class PrescriptionWaiting extends Controller
         try {
             $user = Prescriptions::find($id);
             $user->delete();
-            return Redirect::to('/don-thuoc-moi');
+            return Redirect::to('/cho-xu-ly');
         } catch (Exception $e) {
             return "Xóa không thành công!";
         }

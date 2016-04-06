@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Model\Prescriptions;
+use App\Model\Drug;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
@@ -70,8 +71,24 @@ class Prescription extends Controller
         try {
             $user = Prescriptions::find($id);
             $user->status = '1';
+            $drug = new Drug(['name' => 'A Game of Thrones',
+                    'quantity' => '10',
+                    'cost' => '10'
+                    ]);
+                $drug = $user->drugs()->save($drug);
+                $drug = new Drug(['name' => '1',
+                    'quantity' => '10',
+                    'cost' => '10'
+                    ]);
+                $drug = $user->drugs()->save($drug);
+                $drug = new Drug(['name' => '2',
+                    'quantity' => '10',
+                    'cost' => '10'
+                    ]);
+                $drug = $user->drugs()->save($drug);
             $user->save();
             return Redirect::to('don-thuoc-moi');
+            // return $user;
         } catch (Exception $e) {
             return "Thao tác thất bạn!";
         }

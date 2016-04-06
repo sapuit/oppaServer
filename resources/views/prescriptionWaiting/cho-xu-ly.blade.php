@@ -70,7 +70,7 @@
                                                     <td class="col-md-3 col-sm-3 col-xs-3">Tại quầy</td>
                                                     <td class="">
                                                         <button type="button" class="btn btn-primary" onclick="location.href='{{url('/cho-xu-ly/')}}/{{ $value->id }}';">Đáp ứng</button>
-                                                        <button type="button" class="btn btn-warning" onclick="location.href='{{url('/cho-xu-ly/xu-ly/')}}/{{ $value->id }}';">Không đáp ứng</button>
+                                                        <button type="button" class="btn btn-warning" onclick="location.href='{{url('/cho-xu-ly/xoa/')}}/{{ $value->id }}';">Không đáp ứng</button>
                                                     </td>
 
                                                 </tr>

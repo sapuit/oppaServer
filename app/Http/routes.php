@@ -87,7 +87,9 @@ Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
 
 Route::get('/cho-xu-ly', 'PrescriptionWaiting@showAll');
 Route::get('/cho-xu-ly/{id}', 'PrescriptionWaiting@showItem');
+Route::get('/cho-xu-ly/xoa-toa/{id}', 'PrescriptionWaiting@delete');
 Route::post('cho-xu-ly/xu-ly/', 'PrescriptionWaiting@handle');
+Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@delete');
 
 Route::get('/cho-xat-nhan', 'PrescriptionConfirn@showAll');
 

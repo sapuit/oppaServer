@@ -67,7 +67,7 @@
                                                     <tbody id='TextBoxesGroup'>
                                                       <tr id="TextBoxDiv1">
                                                         <td id="stt1">1</td>
-                                                        <td><input type='text' id='nameDrug1' name='tenDrug1'/></td>
+                                                        <td><input type='text' id='nameDrug1' name='tenDrug1' id="nameDrug1" /></td>
                                                         <td ><input type='text' id='price1' name='price1'  /></td>
                                                         <td ><input type='text' id='count1' name='count1'  style="width:50%"/></td>
                                                         <td id='total1'>.000 vnđ</td>
@@ -122,6 +122,7 @@
 
          </p>
          <input type="hidden" name="id" value="{{$model->id}}"/>
+         <input type="text" name="arrayDrug" id="arrayDrug" value=""/>
          <input type="hidden" name="submitTotal" value="" id="SubmitTotal" />
 
       </div>
@@ -152,19 +153,27 @@
                 // var count = $('#count'+num).val();
                 // var total = price*count;
                 var tong = 0;
+                var arrayList = [];
+                jsonObj = [];
                 for(var i = 1; i<= counter; i++)
                 {
+                    var nameDrug = $('#nameDrug'+i).val();
                     var price = $('#price'+i).val();
                     var num =  $('#count'+i).val();
                     var total = price*num;
                     $('#total'+i).html(total +".000 vnđ");
                     tong = tong + total;
+                    var drug = new Drug(nameDrug,price,num,total);
+                    arrayList.push(drug);
+                    // tong = JSON.stringify(arrayList);
+                    $("#arrayDrug").val(JSON.stringify(arrayList));
+                    // tong = JSON.stringify(arrayList);
                 }
                 
                 counter++;
                 var newRow = jQuery('<tr id="TextBoxDiv'+counter+'">'
                     +'<td id="stt'+counter+'">' + counter + '</td>'
-                    +'<td><input type="text" name="nameDrug' +
+                    +'<td><input type="text" id="nameDrug' +
                     counter + '"/></td><td><input id="price'+
                     counter + '" type="text" name="price' +
                     counter + '"/></td><td><input id="count'+
@@ -194,7 +203,13 @@
             });
             // end
         });
-    
+//json Drug
+    function Drug(name, quantity, cost, total) {
+        this.name = name;
+        this.quantity = quantity;
+        this.cost = cost;
+        this.total = total;
+    }
     
         
 
