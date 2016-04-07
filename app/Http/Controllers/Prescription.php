@@ -99,6 +99,9 @@ class Prescription extends Controller
 
         try {
             $user = Prescriptions::find($id);
+            $nameImage = $user->image;
+            $LinkImage = "./uploads/prescription/".$nameImage;
+            unlink($LinkImage);
             $user->delete();
             return Redirect::to('/don-thuoc-moi');
         } catch (Exception $e) {

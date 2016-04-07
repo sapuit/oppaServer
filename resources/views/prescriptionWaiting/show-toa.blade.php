@@ -195,8 +195,9 @@
                 var x = document.createElement("SCRIPT");
                 var t = document.createTextNode('jQuery("#delete'+couRow+'").click(function(event){'+
                     '$("#TextBoxDiv'+couRow+'").remove();'+
-                    'for(var j=1; j<8; j++){'+
-                    '$("#stt"+j).html(j);}'+
+                    'var j=0;'+
+                    'for(var i = 1; i<50; i++)'+
+                    '{ j++; if ($("#stt"+i).val()==null){j--}$("#stt"+i).html(j);}'+
                     '});');
                 x.appendChild(t);
                 document.body.appendChild(x);
