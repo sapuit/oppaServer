@@ -81,7 +81,7 @@
                                                     </tbody>
                                                 </table>
 
-                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"><b>Xuất toa</b></button>
+                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" id="showPopup"><b>Xuất toa</b></button>
 
                                                 <input type='button' class="btn btn-primary btn-sm" value='Thêm thuốc' id='addButton' />
 
@@ -122,7 +122,7 @@
 
          </p>
          <input type="hidden" name="id" value="{{$model->id}}"/>
-         <input type="text" name="arrayDrug" id="arrayDrug" value=""/>
+         <input type="hidden" name="arrayDrug" id="arrayDrug" value=""/>
          <input type="hidden" name="submitTotal" value="" id="SubmitTotal" />
 
       </div>
@@ -147,11 +147,6 @@
     var counter = 1;
         jQuery(function(){
             jQuery('#addButton').click(function(event){
-                // event.preventDefault();
-                // var num = counter;
-                // var price = $('#price'+num).val();
-                // var count = $('#count'+num).val();
-                // var total = price*count;
                 var tong = 0;
                 var arrayList = [];
                 jsonObj = [];
@@ -161,13 +156,14 @@
                     var price = $('#price'+i).val();
                     var num =  $('#count'+i).val();
                     var total = price*num;
-                    $('#total'+i).html(total +".000 vnđ");
-                    tong = tong + total;
-                    var drug = new Drug(nameDrug,price,num,total);
-                    arrayList.push(drug);
-                    // tong = JSON.stringify(arrayList);
-                    $("#arrayDrug").val(JSON.stringify(arrayList));
-                    // tong = JSON.stringify(arrayList);
+                    if(total>0){
+                        $('#total'+i).html(total +".000 vnđ");
+                        tong = tong + total;
+                    }else{
+                        $('#total'+i).html(".000 vnđ");
+                        total=0;
+                    }
+                    
                 }
                 
                 counter++;
@@ -211,8 +207,32 @@
         this.cost = cost;
         this.total = total;
     }
+
+    jQuery(function(){
+            jQuery('#showPopup').click(function(event){
+                var tong = 0;
+                var arrayList = [];
+                jsonObj = [];
+                for(var i = 1; i<= 100; i++)
+                {
+                    var nameDrug = $('#nameDrug'+i).val();
+                    var price = $('#price'+i).val();
+                    var num =  $('#count'+i).val();
+                    var total = price*num;
+                    if(total>0){
+                        tong = tong + total;
+                        var drug = new Drug(nameDrug,price,num,total);
+                        arrayList.push(drug);
+                        $("#arrayDrug").val(JSON.stringify(arrayList));
+                    }else{
+                        total=0;
+                    }
+                    
+                }
+        });
+    });
     
-        
+//lay json array thuoc        
 
 </script>   
 

@@ -15,18 +15,42 @@ use DB;
 */
 class PrescriptionWaiting extends Controller
 {
+    private $arrNum;
+    private $model;
 	public function showAll()
 	{
-		$model = Prescriptions::where('status', '=', "1")->get();
-        // return $model;
-        return view('prescriptionWaiting.cho-xu-ly', compact('model'));
+		 $this->getData();
+        $arrNums = $this->arrNum;
+        $i=0;
+        foreach ($this->model as $value) {
+            if($value->status!='1')
+            {
+                unset($this->model[$i]);
+            }
+            $i++;
+        }
+        return view('prescriptionWaiting.cho-xu-ly', 
+            [   'arrNum' => $arrNums,
+                'model' => $this->model
+            ]);
 	}
 
 //hien thi mot toa thuoc
     public function showItem($id)
     {
-        $model = Prescriptions::find($id);
-        return view('prescriptionWaiting.show-toa', compact('model'));
+        $this->getData();
+        $i=0;
+        foreach ($this->model as $value) {
+            if($value->id==$id)
+            {
+                $model = $this->model[$i];
+            }
+            $i++;
+        }
+        return view('prescriptionWaiting.show-toa', [   
+            'arrNum' => $this->arrNum,
+                'model' => $model
+            ]);
     }
 
 //xu ly toa thuoc
@@ -49,7 +73,8 @@ class PrescriptionWaiting extends Controller
                 {
                     $drug = new Drug(['name' => $value->name,
                     'quantity' => $value->quantity,
-                    'cost' => $value->cost
+                    'cost' => $value->cost,
+                    'total' => $value->total
                     ]);
                     $drug = $model->drugs()->save($drug);
                 }
@@ -125,6 +150,9 @@ class PrescriptionWaiting extends Controller
 
         try {
             $user = Prescriptions::find($id);
+            $nameImage = $user->image;
+            $LinkImage = "./uploads/prescription/".$nameImage;
+            unlink($LinkImage);
             $user->delete();
             return Redirect::to('/cho-xu-ly');
         } catch (Exception $e) {
@@ -132,5 +160,37 @@ class PrescriptionWaiting extends Controller
         }
         
         
+    }
+
+    public function getData()
+    {
+        $this->model = Prescriptions::all();
+        $num0 = 0;
+        $num1 = 0;
+        $num2 = 0;
+        $num3 = 0;
+        $num4 = 0;
+        foreach ($this->model as $value) {
+            switch ($value->status) {
+                case '0':
+                    $num0++;
+                    break;
+                case '1':
+                    $num1++;
+                    break;
+                case '2':
+                    $num2++;
+                    break;
+                case '3':
+                    $num3++;
+                    break;
+                case '4':
+                    $num4++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        $this->arrNum = array($num0,$num1, $num2, $num3, $num4);
     }
 }

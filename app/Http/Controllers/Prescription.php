@@ -15,18 +15,43 @@ use DB;
 */
 class Prescription extends Controller
 {
+    private $arrNum;
+    private $model;
 	public function showAll()
 	{
-		$model = Prescriptions::where('status', '=', "0")->get();
-        // return $model;
-        return view('prescription.don-thuoc-moi', compact('model'));
+        $this->getData();
+        $arrNums = $this->arrNum;
+        $i=0;
+        foreach ($this->model as $value) {
+            if($value->status!='0')
+            {
+                unset($this->model[$i]);
+            }
+            $i++;
+        }
+        return view('prescription.don-thuoc-moi', 
+            [   'arrNum' => $arrNums,
+                'model' => $this->model
+            ]);
 	}
 
 //hien thi mot toa thuoc
     public function showItem($id)
     {
-        $model = Prescriptions::find($id);
-        return view('prescription.show-toa', compact('model'));
+        $this->getData();
+        $i=0;
+        foreach ($this->model as $value) {
+            if($value->id==$id)
+            {
+                $model = $this->model[$i];
+            }
+            $i++;
+        }
+        return view('prescription.show-toa', [   
+            'arrNum' => $this->arrNum,
+                'model' => $model
+            ]);
+    
     }
 
     public function insertForm(){
@@ -71,21 +96,6 @@ class Prescription extends Controller
         try {
             $user = Prescriptions::find($id);
             $user->status = '1';
-            $drug = new Drug(['name' => 'A Game of Thrones',
-                    'quantity' => '10',
-                    'cost' => '10'
-                    ]);
-                $drug = $user->drugs()->save($drug);
-                $drug = new Drug(['name' => '1',
-                    'quantity' => '10',
-                    'cost' => '10'
-                    ]);
-                $drug = $user->drugs()->save($drug);
-                $drug = new Drug(['name' => '2',
-                    'quantity' => '10',
-                    'cost' => '10'
-                    ]);
-                $drug = $user->drugs()->save($drug);
             $user->save();
             return Redirect::to('don-thuoc-moi');
             // return $user;
@@ -109,5 +119,37 @@ class Prescription extends Controller
         }
         
         
+    }
+
+    public function getData()
+    {
+        $this->model = Prescriptions::all();
+        $num0 = 0;
+        $num1 = 0;
+        $num2 = 0;
+        $num3 = 0;
+        $num4 = 0;
+        foreach ($this->model as $value) {
+            switch ($value->status) {
+                case '0':
+                    $num0++;
+                    break;
+                case '1':
+                    $num1++;
+                    break;
+                case '2':
+                    $num2++;
+                    break;
+                case '3':
+                    $num3++;
+                    break;
+                case '4':
+                    $num4++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        $this->arrNum = array($num0,$num1, $num2, $num3, $num4);
     }
 }

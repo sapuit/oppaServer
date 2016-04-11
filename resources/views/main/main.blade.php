@@ -69,21 +69,21 @@
                             <ul class="nav side-menu">
                                 <li><a href="{{url('')}}"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-circle-right"></span></a>
                                 </li>
-                                <li><a><i class="fa fa-edit"></i> Đơn thuốc <span class="label label-success">5 Mới</span><span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fa fa-edit"></i> Đơn thuốc <span class="label label-success">{{$arrNum[0]+$arrNum[1]}} Mới</span><span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
-                                        <li><a href="{{url('don-thuoc-moi')}}">Đơn thuốc mới (15)</a>
+                                        <li><a href="{{url('don-thuoc-moi')}}">Đơn thuốc mới ({{$arrNum[0]}})</a>
                                         </li>
-                                        <li><a href="{{url('cho-xu-ly')}}">Chờ xử lý (6)</a>
+                                        <li><a href="{{url('cho-xu-ly')}}">Chờ xử lý ({{$arrNum[1]}})</a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a><i class="fa fa-calendar-o"></i>Giao dịch <span class="label label-success">8 Mới</span><span class="fa fa-chevron-down"></span></a>
+                                <li><a><i class="fa fa-calendar-o"></i>Giao dịch <span class="label label-success">{{$arrNum[2]+$arrNum[3]+$arrNum[4]}} Mới</span><span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu" style="display: none">
-                                        <li><a href="{{url('cho-xat-nhan')}}">Chờ xát nhận (12)</a>
+                                        <li><a href="{{url('cho-xat-nhan')}}">Chờ xát nhận ({{$arrNum[2]}})</a>
                                         </li>
-                                        <li><a href="{{url('giao-nhan')}}">Đang giao nhận (15)</a>
+                                        <li><a href="{{url('giao-nhan')}}">Đang giao nhận ({{$arrNum[3]}})</a>
                                         </li>
-                                        <li><a href="{{url('hoan-thanh')}}">Hoàn thành (21)</a>
+                                        <li><a href="{{url('hoan-thanh')}}">Hoàn thành ({{$arrNum[4]}})</a>
                                         </li>
                                     </ul>
                                 </li>
