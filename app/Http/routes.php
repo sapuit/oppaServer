@@ -48,13 +48,12 @@ Route::group(['middleware' => ['web']], function () {
 		    return $name;
 		});
 
-	Route::get('mongo/show', 'Mongo@showCollections');
-
-	Route::get('mongo/insert', 'Mongo@insertCol');
-
-	Route::get('mongo/update', 'Mongo@updateCol');
-
-	Route::get('mongo/delete', 'Mongo@deleteCol');
+	
+	// test
+	// Route::get('header/form', 'Header@getForm');
+	// Route::post('header/post', 'Header@store');
+	// Route::get('header/show', 'Header@display');
+	Route::post('prescription/post', 'PrescriptionApi@getRequest');
 
 
 	Route::get('prescription', 'Prescription@showAll');
@@ -69,12 +68,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('prescription/update', 'Prescription@update');
 	Route::get('prescription/delete', 'Prescription@delete');	
 
-	Route::get('header/form', 'Header@getForm');
-	Route::post('header/post', 'Header@store');
-	Route::get('header/show', 'Header@display');
-
 });
-
 
 
 //xu ly don thuoc
