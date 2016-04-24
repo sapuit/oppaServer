@@ -10,13 +10,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
 use Illuminate\Support\Facades\Validator; 
 use DB;
-/**
-* 
-*/
+
+
 class PrescriptionApi extends Controller
 {
    
-   public function getRequest(Request $request){
+   public function getRequestImg(Request $request){
  
         $table = new Prescriptions;
         $table->name  = $request->input('name');
@@ -26,23 +25,63 @@ class PrescriptionApi extends Controller
         $table->email  = 'example@gmail.com';
         $table->status = '0';
         $table->total  = '0';
+        $table->save(); 
 
-        $target_Path = "uploads/prescription/";
-        $imgname     = $request->input('phone').'.jpg';
+        $target_Path = "uploads/prescription/" . date("Y-m-d");
+        if (!file_exists($target_Path.'path/to/directory')) {
+            mkdir('path/to/directory', 0777, true);
+        }
+
+        $imgname     = $table->get('_id').'_'.$request->input('phone').'.jpg';
         $target_Path = $target_Path.$imgname;
 
         $imsrc = base64_decode($request->input('image'));
         $fp    = fopen($target_Path, 'w');
         fwrite($fp, $imsrc);
+        
         if(fclose($fp)){
-            echo "Tải hình thành công";
+            $result = 'OK';
         }else{
-            echo "Tải hình thất bại";
+            $result = 'FAIL';;
         }
 
         $table->image = $imgname;
-
         $table->save(); 
-        return "Successfully Uploaded";
+
+
+        return $result;
+     }
+
+    public function getRequestList(Request $request){
+        try {
+            
+            $table = new Prescriptions;
+            $table->name  = $request->input('name');
+            $table->phone = $request->input('phone');
+            $table->addr  = $request->input('addr');
+            // $table->email = $request->input('email');
+            $table->email  = 'example@gmail.com';
+            $table->status = '0';
+            $table->total  = '0';
+            $table->save();
+
+            $jsonArr = $request->input('drugs');
+            foreach ($jsonArr as $value) {
+                $drug = new Drug([
+                    'name'     => $value['name'],
+                    'quantity' => $value['quantity'],
+                    'cost'     => '0',
+                    'total'    => '0'
+                    ]);
+                $table->drugs()->save($drug);
+            }
+         
+            return  "OK";
+
+        } catch (Exception $e) {
+            return $e;
+        }
+       
+        
      }
 }
