@@ -10,7 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 Route::get('/', 'Home@index');
+
 Route::get('/home', function () {
     return view('home');
 });
@@ -53,7 +55,8 @@ Route::group(['middleware' => ['web']], function () {
 	// Route::get('header/form', 'Header@getForm');
 	// Route::post('header/post', 'Header@store');
 	// Route::get('header/show', 'Header@display');
-	Route::post('prescription/post', 'PrescriptionApi@getRequest');
+	Route::post('prescription/post-image', 'PrescriptionApi@getRequestImg');
+	Route::post('prescription/post-drugs', 'PrescriptionApi@getRequestList');
 
 
 	Route::get('prescription', 'Prescription@showAll');
