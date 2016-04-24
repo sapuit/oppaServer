@@ -46,7 +46,7 @@ class PrescriptionConfirn extends Controller
             }
             $i++;
         }
-        return view('prescriptionWaiting.show-toa', [   
+        return view('PrescriptionConfirm.show-toa', [   
             'arrNum' => $this->arrNum,
                 'model' => $model
             ]);

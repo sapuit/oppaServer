@@ -2,7 +2,7 @@
 
 use Illuminate\Auth\Passwords\DatabaseTokenRepository as BaseDatabaseTokenRepository;
 use MongoDB\BSON\UTCDateTime;
-
+ 
 class DatabaseTokenRepository extends BaseDatabaseTokenRepository
 {
     /**

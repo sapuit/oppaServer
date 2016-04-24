@@ -99,45 +99,6 @@ class PrescriptionWaiting extends Controller
         
     }
 
-
-    public function insertForm(){
-        return view('prescription.insert');
-    }
-
-	public function insertSave(Request $request){
-
-        $validation = Validator::make($request->all(), array(
-            'image' => 'required|mimes:jpg,jpeg|max:10000',
-            ));
-        
-        if ($validation->fails() ) {
-            return Redirect::to('prescription/insert')->withErrors($validation);
-
-        } else {
-            $table = new Prescriptions;
-            $logo   = $request->file('image');
-            $upload = 'uploads/prescription';
-            $filename = $logo->getClientOriginalName();
-            $success = $logo->move($upload, $filename);
-
-            if ($success) {
-                $table->name = $request->input('name');
-                $table->phone = $request->input('phone');
-                $table->addr = $request->input('addr');
-                $table->email = $request->input('email');
-                // $table->status = $request->input('status') ;
-                $table->status = "0" ;
-                $table->maBn = "001" ;
-                $table->total = $request->input('total') ;
-                $table->image = $filename;
-                $table->save();
-                // print_r($table);exit();
-                // return Redirect::to('prescription')->with('success','Data submitted');
-                return Redirect::to('prescription');
-            }   
-        }
-    }
-
     public function update($id){
 
         $user = Prescriptions::find($id);

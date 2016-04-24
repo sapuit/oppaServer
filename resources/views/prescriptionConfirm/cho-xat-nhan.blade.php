@@ -60,7 +60,7 @@
                                             <?php foreach ($model as $value) {
                                             ?>
                                 
-                                                <tr class="even pointer" data-href="{{url('/don-thuoc-moi/show/')}}/{{ $value->id }}">
+                                                <tr class="even pointer" data-href="{{url('/cho-xat-nhan/show-toa')}}/{{ $value->id }}">
                                                     
                                                     <td class="col-md-2 col-sm-2 col-xs-2">{{ $value->maBn }}</td>
                                                     <td class=" ">{{ $value->name}} <i class="success fa fa-long-arrow-up"></i>

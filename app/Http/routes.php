@@ -10,10 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', 'Home@index');
-Route::get('/home', function () {
-    return view('home');
-});
+
+// Route::get('/home', function () {
+//     return view('home');
+// });
 
 
 
@@ -29,7 +29,8 @@ Route::get('/home', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-
+	Route::auth();
+	// Route::get('/home', 'HomeController@index');
 	//	demo routing
 	Route::get('/user/{id}',function($id){
 		return 'User ' . $id;
@@ -72,30 +73,47 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('header/form', 'Header@getForm');
 	Route::post('header/post', 'Header@store');
 	Route::get('header/show', 'Header@display');
+	Route::post('test', 'Prescription@testUpload');
 
 });
 
+Route::group(['middleware' => ['web', 'auth']], function () {
+	
+	Route::get('/', 'Home@index');
 
+	//xu ly don thuoc
+	Route::get('/don-thuoc-moi', 'Prescription@showAll');
+	Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
+	Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
+	Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
 
-//xu ly don thuoc
-Route::get('/don-thuoc-moi', 'Prescription@showAll');
-Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
-Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
-Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
+	Route::get('/cho-xu-ly', 'PrescriptionWaiting@showAll');
+	Route::get('/cho-xu-ly/{id}', 'PrescriptionWaiting@showItem');
+	Route::get('/cho-xu-ly/xoa-toa/{id}', 'PrescriptionWaiting@delete');
+	Route::post('cho-xu-ly/xu-ly/', 'PrescriptionWaiting@handle');
+	Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@delete');
 
-Route::get('/cho-xu-ly', 'PrescriptionWaiting@showAll');
-Route::get('/cho-xu-ly/{id}', 'PrescriptionWaiting@showItem');
-Route::get('/cho-xu-ly/xoa-toa/{id}', 'PrescriptionWaiting@delete');
-Route::post('cho-xu-ly/xu-ly/', 'PrescriptionWaiting@handle');
-Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@delete');
+	Route::get('/cho-xat-nhan', 'PrescriptionConfirn@showAll');
+	Route::get('/cho-xat-nhan/show-toa/{id}', 'PrescriptionConfirn@showItem');
 
-Route::get('/cho-xat-nhan', 'PrescriptionConfirn@showAll');
+	Route::get('/giao-nhan', 'PrescriptionOrder@showAll');
 
-Route::get('/giao-nhan', 'PrescriptionOrder@showAll');
+	Route::get('/hoan-thanh', 'PrescriptionFinish@showAll');
 
-Route::get('/hoan-thanh', 'PrescriptionFinish@showAll');
+});
 
 
 // Route::get('/show-toa', function () {
 //     return view('show-toa');
 // });
+// Route::group(['middleware' => 'web'], function () {
+//     Route::auth();
+
+//     Route::get('/home', 'HomeController@index');
+// });
+// Route::get('/home', 'HomeController@index');
+Route::group(['middleware' => 'web'], function () {
+    // Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+});
