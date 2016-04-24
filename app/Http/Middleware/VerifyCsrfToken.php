@@ -15,7 +15,8 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
-    	'test'
+        'prescription/post-image',
+    	'prescription/post-drugs'
     ];
 
     

@@ -11,9 +11,17 @@
 |
 */
 
+
 // Route::get('/home', function () {
 //     return view('home');
 // });
+
+Route::get('/', 'Home@index');
+
+Route::get('/home', function () {
+    return view('home');
+});
+
 
 
 
@@ -49,13 +57,13 @@ Route::group(['middleware' => ['web']], function () {
 		    return $name;
 		});
 
-	Route::get('mongo/show', 'Mongo@showCollections');
-
-	Route::get('mongo/insert', 'Mongo@insertCol');
-
-	Route::get('mongo/update', 'Mongo@updateCol');
-
-	Route::get('mongo/delete', 'Mongo@deleteCol');
+	
+	// test
+	// Route::get('header/form', 'Header@getForm');
+	// Route::post('header/post', 'Header@store');
+	// Route::get('header/show', 'Header@display');
+	Route::post('prescription/post-image', 'PrescriptionApi@getRequestImg');
+	Route::post('prescription/post-drugs', 'PrescriptionApi@getRequestList');
 
 
 	Route::get('prescription', 'Prescription@showAll');
@@ -70,16 +78,20 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('prescription/update', 'Prescription@update');
 	Route::get('prescription/delete', 'Prescription@delete');	
 
+
 	Route::get('header/form', 'Header@getForm');
 	Route::post('header/post', 'Header@store');
 	Route::get('header/show', 'Header@display');
 	Route::post('test', 'Prescription@testUpload');
+
+
 
 });
 
 Route::group(['middleware' => ['web', 'auth']], function () {
 	
 	Route::get('/', 'Home@index');
+
 
 	//xu ly don thuoc
 	Route::get('/don-thuoc-moi', 'Prescription@showAll');
@@ -92,6 +104,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('/cho-xu-ly/xoa-toa/{id}', 'PrescriptionWaiting@delete');
 	Route::post('cho-xu-ly/xu-ly/', 'PrescriptionWaiting@handle');
 	Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@delete');
+
+//xu ly don thuoc
+Route::get('/don-thuoc-moi', 'Prescription@showAll');
+Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
+Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
+Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
+
 
 	Route::get('/cho-xat-nhan', 'PrescriptionConfirn@showAll');
 	Route::get('/cho-xat-nhan/show-toa/{id}', 'PrescriptionConfirn@showItem');
