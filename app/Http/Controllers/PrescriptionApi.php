@@ -35,6 +35,7 @@ class PrescriptionApi extends Controller
         }else{
             $result = 'FAIL';;
         }
+
         $table->save(); 
         return $result;
      }
