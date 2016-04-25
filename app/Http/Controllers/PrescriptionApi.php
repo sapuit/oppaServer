@@ -30,10 +30,9 @@ class PrescriptionApi extends Controller
             mkdir($target_Path, 0777, true);
         }
 
-        $target_Path = $target_Path . "/";
         $imgname =  $request->input('phone') . '_' . date("His") . '.jpg';
-        $target_Path = $target_Path.$imgname;
-        $table->image = $target_Path;
+        $target_Path = $target_Path."/".$imgname;
+        
         $imsrc = base64_decode($request->input('image'));
         $fp    = fopen($target_Path, 'w');
         fwrite($fp, $imsrc);
@@ -43,6 +42,7 @@ class PrescriptionApi extends Controller
             $result = 'FAIL';;
         }
 
+        $table->image = date("Y/m/d") . "/" . $imgname;
         $table->save(); 
         return $result;
      }
