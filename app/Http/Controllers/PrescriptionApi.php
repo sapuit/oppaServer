@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
 use App\User;
 use Illuminate\Http\Request;
 use App\Model\Prescriptions;
@@ -10,8 +9,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
 use Illuminate\Support\Facades\Validator; 
 use DB;
-
-
 class PrescriptionApi extends Controller
 {
    
@@ -25,33 +22,22 @@ class PrescriptionApi extends Controller
         $table->email  = 'example@gmail.com';
         $table->status = '0';
         $table->total  = '0';
-        $table->save(); 
-
-        $target_Path = "uploads/prescription/" . date("Y-m-d");
-        if (!file_exists($target_Path.'path/to/directory')) {
-            mkdir('path/to/directory', 0777, true);
-        }
-
-        $imgname     = $table->get('_id').'_'.$request->input('phone').'.jpg';
+    
+        $target_Path = "uploads/prescription/";
+        $imgname     = $request->input('phone').'.jpg';
         $target_Path = $target_Path.$imgname;
-
+        $table->image = $imgname;
         $imsrc = base64_decode($request->input('image'));
         $fp    = fopen($target_Path, 'w');
         fwrite($fp, $imsrc);
-        
         if(fclose($fp)){
             $result = 'OK';
         }else{
             $result = 'FAIL';;
         }
-
-        $table->image = $imgname;
         $table->save(); 
-
-
         return $result;
      }
-
     public function getRequestList(Request $request){
         try {
             
@@ -64,7 +50,6 @@ class PrescriptionApi extends Controller
             $table->status = '0';
             $table->total  = '0';
             $table->save();
-
             $jsonArr = $request->input('drugs');
             foreach ($jsonArr as $value) {
                 $drug = new Drug([
@@ -77,7 +62,6 @@ class PrescriptionApi extends Controller
             }
          
             return  "OK";
-
         } catch (Exception $e) {
             return $e;
         }

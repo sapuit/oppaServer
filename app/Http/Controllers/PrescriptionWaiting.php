@@ -112,8 +112,13 @@ class PrescriptionWaiting extends Controller
         try {
             $user = Prescriptions::find($id);
             $nameImage = $user->image;
-            $LinkImage = "./uploads/prescription/".$nameImage;
-            unlink($LinkImage);
+           if($nameImage!=null)
+            {
+                $LinkImage = "./uploads/prescription/".$nameImage;
+                if (is_dir($LinkImage)) {
+                    $images[] = $file;
+                }
+            }
             $user->delete();
             return Redirect::to('/cho-xu-ly');
         } catch (Exception $e) {
