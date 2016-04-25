@@ -33,7 +33,7 @@ class PrescriptionApi extends Controller
         $target_Path = $target_Path . "/";
         $imgname =  $request->input('phone') . '_' . date("His") . '.jpg';
         $target_Path = $target_Path.$imgname;
-        $table->image = $imgname;
+        $table->image = $target_Path;
         $imsrc = base64_decode($request->input('image'));
         $fp    = fopen($target_Path, 'w');
         fwrite($fp, $imsrc);
