@@ -1,0 +1,104 @@
+Mô tả dữ liệu : 
+1. Bảng Prescription 
+{
+	id 		: PRESCRIPTION_ID, 
+	name 	: USER_NAME,
+	phone 	: USER_PHONE_NUMBER,
+	addr 	: USER_ADDRESS,
+	email 	: USER_EMAIL,
+	status 	: PRESCRIPTION_STATUS,
+	total 	: PRESCRIPTION_TOTAL,
+	image 	: PRESCRIPTION_IMAGE,
+	token	: USER_TOKEN,
+	creater_at : date,
+	drugs 	: [
+		{
+			id 			: DRUG_ID,
+			name		: DRUG_NAME, 
+			quantity	: DRUG_QUANTITY, 
+			cost		: DRUG_COST, 
+			total 		: DRUG_TOTAL 
+		}
+		{
+			id 			: DRUG_ID,
+			name		: DRUG_NAME, 
+			quantity	: DRUG_QUANTITY, 
+			cost		: DRUG_COST, 
+			total 		: DRUG_TOTAL 
+		}
+	]
+}
+
+2. Request đơn thuốc Client android gửi đến server
+- Đơn thuốc gửi bằng hình ảnh.
+{
+	name 	: USER_NAME,
+	phone 	: USER_PHONE_NUMBER,
+	addr 	: USER_ADDRESS,
+	image 	: PRESCRIPTION_IMAGE,
+	token	: USER_TOKEN
+}
+
+- Đơn thuốc gửi bằng danh sách thuốc
+
+- Nhận phản hồi :
+	-1 	: Gửi không thành công  
+	 0 	: Đã nhận 
+
+4. Response server yêu cầu gửi lại đơn thuốc (flag = 1)
+{
+	title 	: TITLE_OF_NOTIFICATION,
+	data	: CONTENT,
+	flag	: FLAG,
+	created_at : DATE;
+}
+
+5. Response server gửi thông báo hiện tại chưa thể đáp ứng được đơn thuốc (flag = -1)
+{
+	title 	: TITLE_OF_NOTIFICATION,
+	data	: CONTENT,
+	flag	: FLAG,
+	created_at : DATE;
+}
+
+5. Response server gửi xác nhận có lấy đơn thuốc hay không (flag = 2)
+{
+	title 	: TITLE_OF_NOTIFICATION,
+	data	: 
+	{
+		id 		: PRESCRIPTION_ID, 
+		name 	: USER_NAME,
+		phone 	: USER_PHONE_NUMBER,
+		addr 	: USER_ADDRESS,
+		email 	: USER_EMAIL,
+		status 	: PRESCRIPTION_STATUS,
+		total 	: PRESCRIPTION_TOTAL,
+		image 	: PRESCRIPTION_IMAGE,
+		locate	: LOCATE_RECEVICE_PRE
+		time	: TIME_RECEVICE_PRE
+		creater_at : date,
+		drugs 	: [
+			{
+				id 			: DRUG_ID,
+				name		: DRUG_NAME, 
+				quantity	: DRUG_QUANTITY, 
+				cost		: DRUG_COST, 
+				total 		: DRUG_TOTAL 
+			}
+			{
+				id 			: DRUG_ID,
+				name		: DRUG_NAME, 
+				quantity	: DRUG_QUANTITY, 
+				cost		: DRUG_COST, 
+				total 		: DRUG_TOTAL 
+			}
+		]
+	}
+	flag	: FLAG,
+	created_at : DATE;
+}
+
+- Nhận phản hồi
+	0	: hủy đơn thuốc
+	1	: Chờ giao toa 
+
