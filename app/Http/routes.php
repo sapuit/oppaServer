@@ -58,30 +58,23 @@ Route::group(['middleware' => ['web']], function () {
 		});
 
 	
-	// test
-	// Route::get('header/form', 'Header@getForm');
-	// Route::post('header/post', 'Header@store');
-	// Route::get('header/show', 'Header@display');
+	// API Android client
 	Route::post('prescription/post-image', 'PrescriptionApi@getRequestImg');
 	Route::post('prescription/post-drugs', 'PrescriptionApi@getRequestList');
 
 
 	Route::get('prescription', 'Prescription@showAll');
-
     Route::get('prescription/insert', 	
 	['as' => 'insert' , 'uses' => 'Prescription@insertForm']);
-	
 	Route::post('prescription/insert',
 	['as' => 'insert_store' , 'uses' => 'Prescription@insertSave']);
-
-
 	Route::get('prescription/update', 'Prescription@update');
 	Route::get('prescription/delete', 'Prescription@delete');	
 
 
-	Route::get('header/form', 'Header@getForm');
-	Route::post('header/post', 'Header@store');
-	Route::get('header/show', 'Header@display');
+	// Route::get('header/form', 'Header@getForm');
+	// Route::post('header/post', 'Header@store');
+	// Route::get('header/show', 'Header@display');
 	Route::post('test', 'Prescription@testUpload');
 
 
@@ -105,18 +98,16 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::post('cho-xu-ly/xu-ly/', 'PrescriptionWaiting@handle');
 	Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@delete');
 
-//xu ly don thuoc
-Route::get('/don-thuoc-moi', 'Prescription@showAll');
-Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
-Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
-Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
+	//xu ly don thuoc
+	Route::get('/don-thuoc-moi', 'Prescription@showAll');
+	Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
+	Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
+	Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
 
 
 	Route::get('/cho-xat-nhan', 'PrescriptionConfirn@showAll');
 	Route::get('/cho-xat-nhan/show-toa/{id}', 'PrescriptionConfirn@showItem');
-
 	Route::get('/giao-nhan', 'PrescriptionOrder@showAll');
-
 	Route::get('/hoan-thanh', 'PrescriptionFinish@showAll');
 
 });
