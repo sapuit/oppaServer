@@ -8,7 +8,7 @@ class Prescriptions extends Model
 { 
     protected $fillable = 
     array('name','email','phone','addr',
-    	'image','status','total');
+    	'image','status','total','token');
 
     public function drugs(){
     	return $this->embedsMany('App\Model\Drug');
