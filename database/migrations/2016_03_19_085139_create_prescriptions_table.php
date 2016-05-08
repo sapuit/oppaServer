@@ -21,6 +21,7 @@ class CreatePrescriptionsTable extends Migration
             $table->string('image');
             $table->string('total');
             $table->string('status');
+            $table->string('token');
             // $dt = \Carbon\Carbon::createFromFormat('Y/m/d', $value)->toDateString();
             // $this->attributes['id'] = $dt;
             $table->timestamps();
