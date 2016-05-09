@@ -6,6 +6,7 @@ use App\Model\Prescriptions;
 use App\Model\Drug;
 use App\Http\Controllers\Controller;
 
+
 class PrescriptionApi extends Controller
 {
    
@@ -33,13 +34,14 @@ class PrescriptionApi extends Controller
         $fp    = fopen($target_Path, 'w');
         fwrite($fp, $imsrc);
         if(fclose($fp)){
-            $result = 'OK';
+            $result = '0';
         }else{
-            $result = 'FAIL';
+            $result = '-1';
         }
 
         $table->image = date("Y/m/d") . "/" . $imgname;
         $table->save(); 
+
         return $result;
      }
 
