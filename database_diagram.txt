@@ -48,45 +48,43 @@ Mô tả dữ liệu :
 4. Response server yêu cầu gửi lại đơn thuốc (flag = 1)
 {
 	title 	: TITLE_OF_NOTIFICATION,
-	data	: CONTENT,
 	flag	: FLAG,
+	message	: MESSAGE,
 	created_at : DATE;
 }
 
 5. Response server gửi thông báo hiện tại chưa thể đáp ứng được đơn thuốc (flag = -1)
 {
 	title 	: TITLE_OF_NOTIFICATION,
-	data	: CONTENT,
 	flag	: FLAG,
+	message	: MESSAGE,
 	created_at : DATE;
 }
 
 5. Response server gửi xác nhận có lấy đơn thuốc hay không (flag = 2)
 {
 	title 	: TITLE_OF_NOTIFICATION,
-	data	: 
+	message	: 
 	{
 		id 		: PRESCRIPTION_ID, 
 		name 	: USER_NAME,
 		phone 	: USER_PHONE_NUMBER,
 		addr 	: USER_ADDRESS,
 		email 	: USER_EMAIL,
-		status 	: PRESCRIPTION_STATUS,
 		total 	: PRESCRIPTION_TOTAL,
 		image 	: PRESCRIPTION_IMAGE,
 		locate	: LOCATE_RECEVICE_PRE
-		time	: TIME_RECEVICE_PRE
-		creater_at : date,
+		time	: TIME_RECEVICE_PRE,
 		drugs 	: [
 			{
-				id 			: DRUG_ID,
+				
 				name		: DRUG_NAME, 
 				quantity	: DRUG_QUANTITY, 
 				cost		: DRUG_COST, 
 				total 		: DRUG_TOTAL 
 			}
 			{
-				id 			: DRUG_ID,
+			
 				name		: DRUG_NAME, 
 				quantity	: DRUG_QUANTITY, 
 				cost		: DRUG_COST, 
