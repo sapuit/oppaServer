@@ -60,9 +60,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('/', 'Home@index');
 
 
-	//xu ly don thuoc
+	//	xu ly don thuoc
 	Route::get('/don-thuoc-moi', 'Prescription@showAll');
 	Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
+	//	Yêu cầu gửi lại đơn thuốc 
 	Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
 	Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
 
@@ -71,13 +72,6 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('/cho-xu-ly/xoa-toa/{id}', 'PrescriptionWaiting@delete');
 	Route::post('cho-xu-ly/xu-ly/', 'PrescriptionWaiting@handle');
 	Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@delete');
-
-	//xu ly don thuoc
-	Route::get('/don-thuoc-moi', 'Prescription@showAll');
-	Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
-	Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
-	Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
-
 
 	Route::get('/cho-xat-nhan', 'PrescriptionConfirn@showAll');
 	Route::get('/cho-xat-nhan/show-toa/{id}', 'PrescriptionConfirn@showItem');

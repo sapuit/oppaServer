@@ -9,10 +9,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
 use Illuminate\Support\Facades\Validator; 
-use DB;
-/**
-* 
-*/
+
+use App\Libs\Gcm\gcm;
+use App\Libs\Gcm\Push;
+
+
 class Prescription extends Controller
 {
     
@@ -142,8 +143,19 @@ class Prescription extends Controller
     public function delete($id){
 
         try {
-            $user = Prescriptions::find($id);
-            $nameImage = $user->image;
+            $pre = Prescriptions::find($id);
+            $nameImage = $pre->image;
+
+            //  gửi response tới client
+            $token = $pre->token;
+            $flag = '1';
+        
+            $push = new Push();
+            $push->setFlag($flag);
+
+            $gcm = new GCM();
+            $gcm->send($token, $push->getPush());
+
             if($nameImage!=null)
             {
                 $LinkImage = "./uploads/prescription/".$nameImage;
@@ -152,12 +164,11 @@ class Prescription extends Controller
                 }
             }
             
-            $user->delete();
+            $pre->delete();
             return Redirect::to('/don-thuoc-moi');
         } catch (Exception $e) {
             return "Xóa không thành công!";
         }
-        
         
     }
 

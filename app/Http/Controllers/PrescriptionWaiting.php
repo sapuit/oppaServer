@@ -110,8 +110,18 @@ class PrescriptionWaiting extends Controller
     public function delete($id){
 
         try {
-            $user = Prescriptions::find($id);
-            $nameImage = $user->image;
+            $pre = Prescriptions::find($id);
+            $nameImage = $pre->image;
+
+             $token = $pre->token;
+            $flag = '-1';
+        
+            $push = new Push();
+            $push->setFlag($flag);
+
+            $gcm = new GCM();
+            $gcm->send($token, $push->getPush());
+
            if($nameImage!=null)
             {
                 $LinkImage = "./uploads/prescription/".$nameImage;
@@ -119,7 +129,8 @@ class PrescriptionWaiting extends Controller
                     $images[] = $file;
                 }
             }
-            $user->delete();
+            $pre->delete();
+
             return Redirect::to('/cho-xu-ly');
         } catch (Exception $e) {
             return "Xóa không thành công!";
