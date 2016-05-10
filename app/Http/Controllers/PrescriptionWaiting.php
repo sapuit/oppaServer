@@ -79,18 +79,11 @@ class PrescriptionWaiting extends Controller
                     $drug = $model->drugs()->save($drug);
                 }
                 $model->save();
+
+                
+                
                 return Redirect::to('/cho-xu-ly');
-                // return $a = json_decode($data -> Input('arrayDrug'));
-                // return $a[0]["quantity"];
-                // return = $arrayDrug;
-//                 $json = '[
-// { "firstName":"John" , "lastName":"Doe" }, 
-// { "firstName":"Anna" , "lastName":"Smith" }, 
-// { "firstName":"Peter" , "lastName":"Jones" }
-// ]';
-// return $json_decoded = json_decode($json);
-// $data = var_dump($json_decoded);
-// return $json_decoded[0]["lastName"];
+                
             } catch (Exception $e) {
                 return 'Lỗi database';
             }
