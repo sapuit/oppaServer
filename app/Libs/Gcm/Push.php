@@ -17,7 +17,7 @@ class Push{
     
     // flag to indicate the type of notification
     private $flag;
-    
+     
     function __construct() {
         
     }

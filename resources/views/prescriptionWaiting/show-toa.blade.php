@@ -113,11 +113,11 @@
       </div>
       <div class="modal-body">
         <p>
-            <label for="place">Địa điểm giao thuốc:</label>
+            <label for="place">Địa điểm nhận thuốc:</label>
             <input type="text" class="form-control" id="place" name="place">
         </p>
         <p>
-            <label for="time">Địa điểm giao thuốc:</label>
+            <label for="time">Thời gian nhận thuốc:</label>
             <input type="text" class="form-control" id="time" name="time">
 
          </p>

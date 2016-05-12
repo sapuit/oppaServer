@@ -1,40 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
 
-
-// Route::get('/home', function () {
-//     return view('home');
-// });
-
-Route::get('/', 'Home@index');
-
-Route::get('/home', function () {
-    return view('home');
-});
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
 
 Route::group(['middleware' => ['web']], function () {
 	Route::auth();
@@ -64,14 +30,14 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('/don-thuoc-moi', 'Prescription@showAll');
 	Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
 	//	Yêu cầu gửi lại đơn thuốc 
-	Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@delete');
+	Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@resendPre');
 	Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
 
 	Route::get('/cho-xu-ly', 'PrescriptionWaiting@showAll');
 	Route::get('/cho-xu-ly/{id}', 'PrescriptionWaiting@showItem');
-	Route::get('/cho-xu-ly/xoa-toa/{id}', 'PrescriptionWaiting@delete');
+	Route::get('/cho-xu-ly/xoa-toa/{id}', 'PrescriptionWaiting@unavailablePre');
 	Route::post('cho-xu-ly/xu-ly/', 'PrescriptionWaiting@handle');
-	Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@delete');
+	Route::get('/cho-xu-ly/xoa/{id}', 'PrescriptionWaiting@unavailablePre');
 
 	Route::get('/cho-xat-nhan', 'PrescriptionConfirn@showAll');
 	Route::get('/cho-xat-nhan/show-toa/{id}', 'PrescriptionConfirn@showItem');
@@ -81,17 +47,3 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 });
 
 
-// Route::get('/show-toa', function () {
-//     return view('show-toa');
-// });
-// Route::group(['middleware' => 'web'], function () {
-//     Route::auth();
-
-//     Route::get('/home', 'HomeController@index');
-// });
-// Route::get('/home', 'HomeController@index');
-Route::group(['middleware' => 'web'], function () {
-    // Route::auth();
-
-    Route::get('/home', 'HomeController@index');
-});

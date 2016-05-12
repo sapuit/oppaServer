@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;   
 use Illuminate\Support\Facades\Validator; 
 use DB;
+use App\Libs\Gcm\gcm;
+use App\Libs\Gcm\Push;
 /**
 * 
 */
@@ -79,16 +81,68 @@ class PrescriptionWaiting extends Controller
                     $drug = $model->drugs()->save($drug);
                 }
                 $model->save();
+                //msg kiem tra ket qua
+                $msg = $this->vailablePre($id);
 
-                
-                
                 return Redirect::to('/cho-xu-ly');
                 
             } catch (Exception $e) {
                 return 'Lỗi database';
             }
         }
-        
+    }
+    // thong bao dap ung
+    public function vailablePre($id)
+    {
+         $pre = Prescriptions::find($id);
+
+        $token = $pre->token;
+        $flag = '2';
+    
+        $push = new Push();
+        $push->setFlag($flag);
+
+        $gcm = new GCM();
+        $msg = $gcm->send($token, $push->getPush());
+        return $msg;
+    }
+
+    //thong bao khong dap ung
+    public function unavailablePre($id)
+    {
+        $pre = Prescriptions::find($id);
+
+        $token = $pre->token;
+        $flag = '-1';
+    
+        $push = new Push();
+        $push->setFlag($flag);
+
+        $gcm = new GCM();
+        $msg = $gcm->send($token, $push->getPush());
+
+        $this->delete($pre);
+
+        return Redirect::to('/cho-xu-ly');
+
+    }
+
+    
+    public function delete($pre){
+        try {
+            $nameImage = $pre->image;
+            if($nameImage!=null)
+            {
+                $LinkImage = "./uploads/prescription/".$nameImage;
+                if (is_dir($LinkImage)) {
+                    $images[] = $file;
+                }
+            }
+            $pre->delete();
+            return '1';
+        } catch (Exception $e) {
+            return '0';
+        }
         
     }
 
@@ -100,37 +154,6 @@ class PrescriptionWaiting extends Controller
         return $user;
     }
 
-    public function delete($id){
-
-        try {
-            $pre = Prescriptions::find($id);
-            $nameImage = $pre->image;
-
-             $token = $pre->token;
-            $flag = '-1';
-        
-            $push = new Push();
-            $push->setFlag($flag);
-
-            $gcm = new GCM();
-            $gcm->send($token, $push->getPush());
-
-           if($nameImage!=null)
-            {
-                $LinkImage = "./uploads/prescription/".$nameImage;
-                if (is_dir($LinkImage)) {
-                    $images[] = $file;
-                }
-            }
-            $pre->delete();
-
-            return Redirect::to('/cho-xu-ly');
-        } catch (Exception $e) {
-            return "Xóa không thành công!";
-        }
-        
-        
-    }
 
     public function getData()
     {

@@ -56,6 +56,44 @@ class Prescription extends Controller
     
     }
 
+    //yeu cau lai
+    public function resendPre($id)
+    {
+        $pre = Prescriptions::find($id);
+        //  gửi response tới client
+        $token = $pre->token;
+        $flag = '1';
+    
+        $push = new Push();
+        $push->setFlag($flag);
+
+        $gcm = new GCM();
+        $msg = $gcm->send($token, $push->getPush());
+
+        $checkDel = $this->delete($pre);
+        if($checkDel=='1')
+        {
+            return Redirect::to('/don-thuoc-moi');
+        }
+    } 
+    public function delete($pre){
+        try {
+            $nameImage = $pre->image;
+            if($nameImage!=null)
+            {
+                $LinkImage = "./uploads/prescription/".$nameImage;
+                if (is_dir($LinkImage)) {
+                    $images[] = $file;
+                }
+            }
+            $pre->delete();
+            return '1';
+        } catch (Exception $e) {
+            return '0';
+        }
+        
+    }
+
     public function insertForm(){
         return view('prescription.insert');
     }
@@ -140,37 +178,7 @@ class Prescription extends Controller
      // }
  }
 
-    public function delete($id){
-
-        try {
-            $pre = Prescriptions::find($id);
-            $nameImage = $pre->image;
-
-            //  gửi response tới client
-            $token = $pre->token;
-            $flag = '1';
-        
-            $push = new Push();
-            $push->setFlag($flag);
-
-            $gcm = new GCM();
-            $gcm->send($token, $push->getPush());
-
-            if($nameImage!=null)
-            {
-                $LinkImage = "./uploads/prescription/".$nameImage;
-                if (is_dir($LinkImage)) {
-                    $images[] = $file;
-                }
-            }
-            
-            $pre->delete();
-            return Redirect::to('/don-thuoc-moi');
-        } catch (Exception $e) {
-            return "Xóa không thành công!";
-        }
-        
-    }
+    
 
     public function getData()
     {
