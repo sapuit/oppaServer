@@ -19,6 +19,7 @@ class PrescriptionWaiting extends Controller
 {
     private $arrNum;
     private $model;
+
 	public function showAll()
 	{
 		 $this->getData();
@@ -37,7 +38,7 @@ class PrescriptionWaiting extends Controller
             ]);
 	}
 
-//hien thi mot toa thuoc
+    //  Hiển thị toa thuốc
     public function showItem($id)
     {
         $this->getData();
@@ -55,7 +56,7 @@ class PrescriptionWaiting extends Controller
             ]);
     }
 
-//xu ly toa thuoc
+    //  Xử lý toa
     public function handle(Request $data)
     {
 
@@ -83,6 +84,7 @@ class PrescriptionWaiting extends Controller
                 $model->save();
                 //msg kiem tra ket qua
                 $msg = $this->vailablePre($id);
+                
 
                 return Redirect::to('/cho-xu-ly');
                 
@@ -91,16 +93,20 @@ class PrescriptionWaiting extends Controller
             }
         }
     }
-    // thong bao dap ung
+    //  Thông báo đáp ứng toa
     public function vailablePre($id)
     {
          $pre = Prescriptions::find($id);
 
         $token = $pre->token;
         $flag = '2';
+
+        $message = $pre;
     
         $push = new Push();
         $push->setFlag($flag);
+        $push->setMessage($message);
+        
 
         $gcm = new GCM();
         $msg = $gcm->send($token, $push->getPush());

@@ -10,7 +10,7 @@ class VerifyCsrfToken extends BaseVerifier
 {
     /**
      * The URIs that should be excluded from CSRF verification.
-     *
+     * Bỏ qua xác nhận token
      * @var array
      */
     protected $except = [
@@ -20,20 +20,4 @@ class VerifyCsrfToken extends BaseVerifier
         'test'
     ];
 
-    
-    // protected $except_urls = [
-    //     'test'
-    // ];
-
-    // public function handle($request, Closure $next)
-    // {
-    //     $regex = '#' . implode('|', $this->except_urls) . '#';
-
-    //     if ($this->isReading($request) || $this->tokensMatch($request) || preg_match($regex, $request->path()))
-    //     {
-    //         return $this->addCookieToResponse($request, $next($request));
-    //     }
-
-    //     throw new TokenMismatchException;
-    // }
 }

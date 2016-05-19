@@ -59,6 +59,7 @@ class Push{
         }
     }
 
+    //  Gửi response yêu cầu gửi lại toa   
     private function resendPrescription(){
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
@@ -70,6 +71,7 @@ class Push{
         return $res;
     }
 
+    //  Gửi response toa không được đáp ứng 
     private function unavailablePrescription(){
          date_default_timezone_set("Asia/Ho_Chi_Minh");
 
@@ -82,48 +84,49 @@ class Push{
         return $res;
     }
 
+    //  Gửi response xác nhận có đặt toa hay không
     private function conformPrescription(){
         date_default_timezone_set("Asia/Ho_Chi_Minh");
 
-            //  thuốc
-            $drug1 = array();
-            $drug1['name'] = 'Paradon';
-            $drug1['quantity'] = '10';
-            $drug1['cost'] = '1';
-            $drug1['total'] = '10';
+            // //  thuốc
+            // $drug1 = array();
+            // $drug1['name'] = 'Paradon';
+            // $drug1['quantity'] = '10';
+            // $drug1['cost'] = '1';
+            // $drug1['total'] = '10';
 
-            $drug2 = array();
-            $drug2['name'] = 'viagra';
-            $drug2['quantity'] = '5';
-            $drug2['cost'] = '5';
-            $drug2['total'] = '25';
+            // $drug2 = array();
+            // $drug2['name'] = 'viagra';
+            // $drug2['quantity'] = '5';
+            // $drug2['cost'] = '5';
+            // $drug2['total'] = '25';
 
-            //  danh sách thuốc
-            $drugs = array();
-            $drugs[0] = $drug1;
-            $drugs[1] = $drug2;
+            // //  danh sách thuốc
+            // $drugs = array();
+            // $drugs[0] = $drug1;
+            // $drugs[1] = $drug2;
 
-            //  thông tin đơn thuốc
-            $pre = array();
-            $pre['id'] = '1234';
-            $pre['name'] = 'sap';
-            $pre['phone'] = '123456789';
-            $pre['adrr'] = '123 Lê lợi';
-            $pre['total'] = '35';
-            $pre['image'] = '';
-            $pre['locate'] = 'Quầy số 1 ';
-            $pre['time'] = '8am sáng đến 16pm';
-            $pre['drugs'] = $drugs;
+            // //  thông tin đơn thuốc
+            // $pre = array();
+            // $pre['id'] = '1234';
+            // $pre['name'] = 'sap';
+            // $pre['phone'] = '123456789';
+            // $pre['adrr'] = '123 Lê lợi';
+            // $pre['total'] = '35';
+            // $pre['image'] = '';
+            // $pre['locate'] = 'Quầy số 1 ';
+            // $pre['time'] = '8am sáng đến 16pm';
+            // $pre['drugs'] = $drugs;
 
-            $data = array();
-            $data['message'] = '';
-            $data['prescription'] = $pre;
+            // $data = array();
+            // $data['message'] = '';
+            // $data['prescription'] = $pre;
 
             $res = array();
             $res['title'] = "Xác nhận toa thuốc";
             // $res['is_background'] = $this->is_background;
             $res['flag'] = $this->flag;
-            $res['message'] = $data;
+            $res['message'] = $this->message;
             $res['created_at'] =  date('Y-m-d G:i:s');
 
             return $res;

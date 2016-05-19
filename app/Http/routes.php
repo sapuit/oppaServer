@@ -8,14 +8,15 @@ Route::group(['middleware' => ['web']], function () {
 	// API Android client
 	Route::post('prescription/post-image', 'PrescriptionApi@getRequestImg');
 	Route::post('prescription/post-drugs', 'PrescriptionApi@getRequestList');
+	Route::post('prescription/conform', 'PrescriptionApi@getConform');
 
-	Route::get('prescription', 'Prescription@showAll');
+	// Route::get('prescription', 'Prescription@showAll');
     Route::get('prescription/insert', 	
 	['as' => 'insert' , 'uses' => 'Prescription@insertForm']);
 	Route::post('prescription/insert',
 	['as' => 'insert_store' , 'uses' => 'Prescription@insertSave']);
-	Route::get('prescription/update', 'Prescription@update');
-	Route::get('prescription/delete', 'Prescription@delete');	
+	// Route::get('prescription/update', 'Prescription@update');
+	// Route::get('prescription/delete', 'Prescription@delete');	
 
 	//	test API
 	Route::post('test','TestAPI@checkResponse');
@@ -25,11 +26,9 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	
 	Route::get('/', 'Home@index');
 
-
-	//	xu ly don thuoc
+	//	Hiển thị toa thuốc
 	Route::get('/don-thuoc-moi', 'Prescription@showAll');
 	Route::get('/don-thuoc-moi/show/{id}', 'Prescription@showItem'); 
-	//	Yêu cầu gửi lại đơn thuốc 
 	Route::get('/don-thuoc-moi/xoa/{id}', 'Prescription@resendPre');
 	Route::get('/don-thuoc-moi/xu-ly/{id}', 'Prescription@update');
 

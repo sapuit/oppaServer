@@ -74,6 +74,11 @@ class PrescriptionApi extends Controller
         } 
      }
 
+     // public public function getConform(Request $request)
+     // {
+       
+     // }
+
     public function vn_str_filter($str){
         $unicode = array(
            'a'=>'á|à|ả|ã|ạ|ă|ắ|ặ|ằ|ẳ|ẵ|â|ấ|ầ|ẩ|ẫ|ậ',

@@ -19,6 +19,10 @@ class TestAPI extends Controller
 		$push = new Push();
 		$push->setFlag($flag);
 
+		if ($flag ==2) {
+			$push->setMessage($message);
+		}
+
 		$gcm = new GCM();
 		$gcm->send($token, $push->getPush());
 

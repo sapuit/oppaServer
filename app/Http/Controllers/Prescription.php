@@ -37,7 +37,7 @@ class Prescription extends Controller
             ]);
 	}
 
-//hien thi mot toa thuoc
+    //  Hiển thị các toa
     public function showItem($id)
     {
         $this->getData();
@@ -56,30 +56,31 @@ class Prescription extends Controller
     
     }
 
-    //yeu cau lai
+    //  Yêu cầu client gửi lại toa
     public function resendPre($id)
     {
         $pre = Prescriptions::find($id);
+
         //  gửi response tới client
         $token = $pre->token;
-        $flag = '1';
-    
+        $flag = '1';    
         $push = new Push();
         $push->setFlag($flag);
-
         $gcm = new GCM();
         $msg = $gcm->send($token, $push->getPush());
 
         $checkDel = $this->delete($pre);
-        if($checkDel=='1')
+        if($checkDel == '1')
         {
             return Redirect::to('/don-thuoc-moi');
         }
     } 
+
+    //  Xóa toa
     public function delete($pre){
         try {
             $nameImage = $pre->image;
-            if($nameImage!=null)
+            if($nameImage != null)
             {
                 $LinkImage = "./uploads/prescription/".$nameImage;
                 if (is_dir($LinkImage)) {
