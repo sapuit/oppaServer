@@ -11,7 +11,6 @@ class PrescriptionApi extends Controller
 {
    
    public function getRequestImg(Request $request){
-        date_default_timezone_set("Asia/Ho_Chi_Minh"); 
         
         $table = new Prescriptions;
         $table->name  = $request->input('name');
@@ -74,10 +73,10 @@ class PrescriptionApi extends Controller
         } 
      }
 
-     // public public function getConform(Request $request)
-     // {
+     public public function getConform(Request $request)
+     {
        
-     // }
+     }
 
     public function vn_str_filter($str){
         $unicode = array(
