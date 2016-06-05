@@ -200,7 +200,7 @@
             });
             // end
         });
-//json Drug
+    //json Drug
     function Drug(name, quantity, cost, total) {
         this.name = name;
         this.quantity = quantity;

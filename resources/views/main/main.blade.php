@@ -10,7 +10,7 @@
 
     <title>Online pharmacy | </title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap core CSS --> 
 
     <link href="{{url('')}}/public/css/bootstrap.min.css" rel="stylesheet">
 
@@ -219,8 +219,8 @@
                                     </span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <div class="text-center">
+                                    <li ng-controller="employeesController">
+                                        <div class="text-center" ng-repeat="employee in employees">
                                             <a>
                                                 <strong><a href="inbox.html">See All Alerts</strong>
                                                 <i class="fa fa-angle-right"></i>
