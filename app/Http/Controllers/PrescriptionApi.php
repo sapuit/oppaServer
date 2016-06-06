@@ -10,39 +10,38 @@ use App\Http\Controllers\Controller;
 class PrescriptionApi extends Controller
 {
    
-   public function getRequestImg(Request $request){
-        
-        $table = new Prescriptions;
-        $table->name  = $request->input('name');
-        $table->phone = $request->input('phone');
-        $table->addr  = $request->input('addr');
-        $table->token  = $request->input('token');
-        $table->email  = 'example@gmail.com';
-        $table->status = '0';
-        $table->total  = '0';
-        
-        $target_Path = "uploads/prescription/" . date("Y/m/d");
-        if (!file_exists($target_Path)) {
-            mkdir($target_Path, 0777, true);
-        }
+    public function getRequestImg(Request $request){
+    $table = new Prescriptions;
+    $table->name  = $request->input('name');
+    $table->phone = $request->input('phone');
+    $table->addr  = $request->input('addr');
+    $table->token  = $request->input('token');
+    $table->email  = 'example@gmail.com';
+    $table->status = '0';
+    $table->total  = '0';
+    
+    $target_Path = "uploads/prescription/" . date("Y/m/d");
+    if (!file_exists($target_Path)) {
+        mkdir($target_Path, 0777, true);
+    }
 
-        $imgname =  $request->input('phone') . '_' . date("His") . '.jpg';
-        $target_Path = $target_Path."/".$imgname;
-        
-        $imsrc = base64_decode($request->input('image'));
-        $fp    = fopen($target_Path, 'w');
-        fwrite($fp, $imsrc);
-        if(fclose($fp)){
-            $result = '0';
-        }else{
-            $result = '-1';
-        }
+    $imgname =  $request->input('phone') . '_' . date("His") . '.jpg';
+    $target_Path = $target_Path."/".$imgname;
+    
+    $imsrc = base64_decode($request->input('image'));
+    $fp    = fopen($target_Path, 'w');
+    fwrite($fp, $imsrc);
+    if(fclose($fp)){
+        $result = '0';
+    }else{
+        $result = '-1';
+    }
 
-        $table->image = date("Y/m/d") . "/" . $imgname;
-        $table->save(); 
+    $table->image = date("Y/m/d") . "/" . $imgname;
+    $table->save(); 
 
-        return $result;
-     }
+    return $result;
+ }
 
     public function getRequestList(Request $request){
         try{
@@ -73,10 +72,23 @@ class PrescriptionApi extends Controller
         } 
      }
 
-     public public function getConform(Request $request)
-     {
-       
-     }
+    public function getConform(Request $request){
+      $flag  = $request->input('flag');
+      $id    = $request->input('id');
+      $token = $request->input('token');
+      $pre   = Prescriptions::find($id);
+      if ($token == $pre->token) {
+        if ($flag == '1') {
+          //  người dùng xác nhận thuốc
+
+        }elseif ($flag == '0') {
+          //  hủy toa thuốc
+
+        }
+
+      }
+      return  "OK";
+    }
 
     public function vn_str_filter($str){
         $unicode = array(

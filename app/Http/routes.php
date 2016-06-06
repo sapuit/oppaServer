@@ -8,7 +8,7 @@ Route::group(['middleware' => ['web']], function () {
 	// API Android client
 	Route::post('prescription/post-image', 'PrescriptionApi@getRequestImg');
 	Route::post('prescription/post-drugs', 'PrescriptionApi@getRequestList');
-	Route::post('prescription/conform', 'PrescriptionApi@getConform');
+	Route::post('prescription/conform', '	PrescriptionApi@getConform');
 
 	Route::get('prescription', 'Prescription@showAll');
     Route::get('prescription/insert', 	
