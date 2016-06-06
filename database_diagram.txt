@@ -28,6 +28,13 @@ Mô tả dữ liệu :
 		}
 	]
 }
+status :
+0- Đơn thuốc mới
+1- Chờ xử lý
+2- Chờ xác nhận 
+3- Đang giao nhận 
+4- Hoàn thành
+
 
 2. Request đơn thuốc Client android gửi đến server
 - Đơn thuốc gửi bằng hình ảnh.
