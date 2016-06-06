@@ -160,6 +160,7 @@
         var count = $('#count').val();
         var total = price * count;
         var key = e.which || e.keyCode;
+        if(key >= 48)
         if (key === 13) {
             t.row.add([
                 counter,
@@ -174,8 +175,10 @@
             formatform();
             totals();
             counter++;
-        } else {
+        } else if(key >= 48 && key <= 57){
             $('#total').html(formatNum(total) + ' VNĐ');
+        }else{
+            toastr.error('Vui lòng nhập số cho cột "giá thuốc" và "số lượng"',"Lỗi nhập vào!");
         }
     }
 

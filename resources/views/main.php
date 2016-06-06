@@ -278,6 +278,7 @@
 <!-- AngularJS Application Scripts -->
 <script src="<?= asset('public/app/app.js') ?>"></script>
 <script src="<?= asset('public/app/controllers/admincontroller.js') ?>"></script>
+<script src="<?= asset('public/js/toastr.min.js') ?>"></script>
 
 <script type = "text/ng-template" id = "addStudent.htm">
     <h2> Add Student </h2>
@@ -291,6 +292,22 @@
 
 </body>
 <script>
-
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 </script>
 </html>

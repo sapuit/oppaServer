@@ -41,7 +41,7 @@
                         <thead>
                             <tr class="headings">
                                 
-                                <th>Mã BN </th>
+                                <th>STT</th>
                                 <th>Tên bệnh nhân</th>
                                 <th>Thời gian nhận</th>
                                 <th>Địa điểm nhận</th>
@@ -52,7 +52,7 @@
                         <tbody ng-repeat="pre in confirmpre">
                             <tr class="even" ng-click="show(pre._id)">
                                 
-                                <td class="col-md-2 col-sm-2 col-xs-2">{{ pre.maBn }}</td>
+                                <td class="col-md-1 col-sm-1 col-xs-1">{{$index + 1}}</td>
                                 <td class=" ">{{ pre.name}} <i class="success fa fa-long-arrow-up"></i>
                                     <td class=" ">{{ pre.created_at}}</td>
                                 </td>

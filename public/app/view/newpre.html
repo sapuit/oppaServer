@@ -41,7 +41,7 @@
                         <thead>
                             <tr class="headings">
 
-                                <th>Mã BN </th>
+                                <th>STT</th>
                                 <th>Tên bệnh nhân</th>
                                 <th>Thời gian nhận</th>
                                 <th>Địa điểm nhận</th>
@@ -52,7 +52,7 @@
                         <tbody ng-repeat="pre in newpre">
                             <tr class="even" ng-click="show(pre._id)">
 
-                                <td class="col-md-2 col-sm-2 col-xs-2">{{ pre.maBn }}</td>
+                                <td class="col-md-1 col-sm-1 col-xs-1">{{$index + 1}}</td>
                                 <td class=" ">{{ pre.name}} <i class="success fa fa-long-arrow-up"></i>
                                     <td class=" ">{{ pre.created_at}}</td>
                                 </td>
@@ -136,18 +136,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr ng-init='i=0' ng-repeat="drug in pre.drugs">
+                                        <tr ng-repeat="drug in pre.drugs">
                                             <td>{{$index + 1}}</td>
                                             <td>{{drug.name}}</td>
-                                            <td>{{drug.cost}}</td>
+                                            <td><input type="text" name="{{$index + 1}}" class="form-control" ng-model="drug.cost"></td>
                                             <td>{{drug.quantity}}</td>
-                                            <td>{{drug.total}}</td>
+                                            <td>{{drug.cost*drug.quantity}}</td>
                                             <td class="text-center">
-
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>___</td>
+                                            <td>__</td>
                                             <td></td>
                                             <td></td>
                                             <td style="text-align:right"><b>Thành tiền:</b></td>
