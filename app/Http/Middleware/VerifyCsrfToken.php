@@ -17,7 +17,8 @@ class VerifyCsrfToken extends BaseVerifier
         //
         'prescription/post-image',
     	'prescription/post-drugs',
-        'test'
+        'test',
+        'prescription/conform'
     ];
 
 }
