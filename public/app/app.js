@@ -1,5 +1,5 @@
 var app = angular.module('admin', ['ngRoute', 'ngAnimate', 'toastr'])
-.constant('API_URL', 'http://localhost/api/v1/');
+.constant('API_URL', 'http://localhost/oppaServer/api/v1/');
 
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.

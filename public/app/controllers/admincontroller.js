@@ -20,7 +20,7 @@ app.controller('notification', function($scope, $location, $http, API_URL, toast
                 $scope.nitifNewPre = response.new;
             });
             $scope.notifi();
-        },5000);
+        },3000);
     }
 
     $scope.getClass = function (path) {
@@ -97,7 +97,6 @@ app.controller('handlingpre', function($scope, $http, API_URL, $location) {
     });
     // $scope.drugimport = function(view){
     //      $location.path(view);
-       
     // }
 
     $scope.cancel = function(id){
@@ -134,8 +133,15 @@ app.controller('drugimport', function($scope, $http, API_URL, $routeParams, toas
         $scope.pre = response[0];
         $scope.arrDrug ={ _id: $scope.pre._id };
     });
+    
     $scope.addInfor = function(){
-        $('#myModal').modal('show');
+        var length = document.getElementById("tbdrug").rows.length;
+        if(length<=3)
+        {
+            toastr.error("Vui lòng thêm thuốc", "Lỗi!");
+        }else{
+            $('#myModal').modal('show');
+        }
     }
 
     $scope.exportPre = function(){
@@ -151,6 +157,15 @@ app.controller('drugimport', function($scope, $http, API_URL, $routeParams, toas
             while (i<length-1) {
                 var name = document.getElementById("tbdrug").rows[i].cells[1].innerHTML;
                 var quantity = document.getElementById("tbdrug").rows[i].cells[2].innerHTML;
+                if(quantity.substring(0,3)=='<in')
+                {
+                    quantity = document.getElementById("tbdrug").rows[i].cells[2].children[0].value;
+                    if(quantity=='')
+                    {
+                        toastr.error('Thuốc "'+name+'" chưa nhập đủ thông tin! Vui lòng kiểm tra lại toa.', 'Lỗi!');
+                        return '';
+                    }
+                }
                 var cost = document.getElementById("tbdrug").rows[i].cells[3].innerHTML;
                 var total = document.getElementById("tbdrug").rows[i].cells[4].innerHTML;
                 var drug = new $scope.Drug(name, quantity, cost, total);

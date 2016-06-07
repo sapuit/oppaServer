@@ -79,7 +79,7 @@
                                     <ul class="nav child_menu" style="display: none">
                                     <li ng-class="getClass('/newpre')" ><a  href="#newpre">Đơn thuốc mới ({{notif.new}})</a>
                                         </li>
-                                        <li ng-class="getClass('/handlingpre')" ><a href="#handlingpre">Ảnh chờ xử lý ({{notif.handling}})</a>
+                                        <li ng-class="getClass('/handlingpre')" ><a href="#handlingpre">Chờ xử lý ({{notif.handling}})</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -276,6 +276,7 @@
 
 
 <!-- AngularJS Application Scripts -->
+<script type="text/javascript" src="<?= asset('public/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= asset('public/app/app.js') ?>"></script>
 <script src="<?= asset('public/app/controllers/admincontroller.js') ?>"></script>
 <script src="<?= asset('public/js/toastr.min.js') ?>"></script>

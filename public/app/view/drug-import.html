@@ -46,6 +46,7 @@
                         <p><b>Mã Bệnh nhân:</b> {{pre.maBn}}</p>
                         <p><b>Số điện thoại:</b> {{pre.phone}}</p>
                         <p><b>Địa chỉ:</b> {{pre.addr}}</p>
+                        <input type="hidden" id="drugs" value="{{pre.drugs}}">
                     </div>
 
                 </div>
@@ -135,6 +136,41 @@
         "bPaginate": false
     });
     var counter = 1;
+
+    // truong hop da co list drug
+    var dataDrug;
+    setTimeout(function() {
+        dataDrug = document.getElementById('drugs').value;
+        dataDrug = $.parseJSON(dataDrug);
+        console.log(dataDrug);
+        $.each(dataDrug, function(name, druged) {
+            t.row.add([
+                counter,
+                druged.name,
+                '<input type="text" onkeyup="addPrice(this)" class="form-control" />',
+                druged.quantity,
+                '0 VNĐ',
+                '<div style="text-align:center;"><button type="button" class="btn btn-danger btn-sm" style="margin: 0 auto;">' +
+                '<span class="glyphicon glyphicon-trash"></span>' +
+                '</button></div>'
+            ]).draw(false);
+            formatform();
+            totals();
+            counter++;
+        });
+    },1000);
+
+    // them gia thuoc
+    function addPrice(value){
+        var rowInd = value.parentNode.parentNode.rowIndex;
+        var quantity = document.getElementById("tbdrug").rows[rowInd].cells[2].children[0].value;
+        var cost = document.getElementById("tbdrug").rows[rowInd].cells[3].innerHTML;
+        var total = quantity*cost;
+        total = formatNum(total);
+        document.getElementById("tbdrug").rows[rowInd].cells[4].innerHTML = total + ' VNĐ';
+        totals();
+    }
+    
     $('#tbdrug tbody').on('click', 'button.btn-danger', function() {
         t
             .row($(this).parents('tr'))
@@ -147,14 +183,12 @@
         totals();
     });
 
-    $('#tbdrug tbody').on('click', 'button.edit', function() {
-
-        alert('Row index: ' + t.row($(this).index()));
-        console.log(t.row($(this).index()));
-    });
+    // $('#tbdrug tbody').on('click', 'button.edit', function() {
+    //     alert('Row index: ' + t.row($(this).index()));
+    //     console.log(t.row($(this).index()));
+    // });
 
     function drugImport(e) {
-
         var drug = $('#drug').val();
         var price = $('#price').val();
         var count = $('#count').val();
@@ -182,6 +216,7 @@
         }
     }
 
+    // auto tinh tien
     function totals() {
         var length = document.getElementById("tbdrug").rows.length;
         var totals = 0;
@@ -223,7 +258,6 @@
     function autoformat() {
         var price = +$('#price').val();
         price = formatNum(price);
-
         $('#price').val(price + ' VNĐ');
     }
 

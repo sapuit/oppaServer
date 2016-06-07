@@ -126,6 +126,7 @@ class adminAPI extends Controller
             $id = $data->Input('_id');
             $model = Prescriptions::find($id);
             $model->status = '2';
+            $model->drugs()->delete();
             $arrayDrug = $data->Input('drugs');
             foreach ($arrayDrug as $value)
             {
