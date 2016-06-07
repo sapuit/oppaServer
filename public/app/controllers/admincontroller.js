@@ -1,4 +1,4 @@
-app.controller('notification', function($scope, $location, $http, API_URL, toastr) {
+app.controller('notification', function($scope, $location, $http, API_URL, toastr, $route) {
     $http.get(API_URL + "notif")
     .success(function(response) {
         $scope.notif = response;
@@ -16,6 +16,12 @@ app.controller('notification', function($scope, $location, $http, API_URL, toast
                 if($scope.nitifNewPre < response.new){
                     $scope.now = response.new - $scope.nitifNewPre;
                     toastr.info('Có ' + $scope.now + ' toa thuốc mới.', 'Thông báo!');
+                    // cap nhat view newpre
+                    var pathnow = $location.path();
+                    if(pathnow == '/newpre')
+                    {
+                        $route.reload();
+                    }
                 }
                 $scope.nitifNewPre = response.new;
             });
