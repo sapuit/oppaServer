@@ -138,6 +138,7 @@ app.controller('drugimport', function($scope, $http, API_URL, $routeParams, toas
     .success(function(response){
         $scope.pre = response[0];
         $scope.arrDrug ={ _id: $scope.pre._id };
+        console.log($scope.pre);
     });
     
     $scope.addInfor = function(){
