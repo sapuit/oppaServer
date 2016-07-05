@@ -74,12 +74,10 @@ class PrescriptionApi extends Controller
         } 
      }
 
-    //  Bệnh nhân xác nhận có lấy thuôc hay không
-    //  flag = 1 (Có); flag = 0(không)
-    public function getConform(Request $request)
-     {
+     // public public function getConform(Request $request)
+     // {
        
-     }
+     // }
 
     public function vn_str_filter($str){
         $unicode = array(
