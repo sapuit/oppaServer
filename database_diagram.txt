@@ -103,6 +103,7 @@ status :
 	created_at : DATE;
 }
 
+6. Request client gửi lên.
 - Nhận phản hồi
 	0	: hủy đơn thuốc
 	1	: Chờ giao toa 
