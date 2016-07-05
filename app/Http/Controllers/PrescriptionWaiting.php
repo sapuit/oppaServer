@@ -93,6 +93,7 @@ class PrescriptionWaiting extends Controller
             }
         }
     }
+    
     //  Thông báo đáp ứng toa
     public function vailablePre($id)
     {
