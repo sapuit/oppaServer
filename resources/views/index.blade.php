@@ -1,7 +1,5 @@
 @extends('main.main')
 
-
-
     @section('body_right')
 
                 <br />

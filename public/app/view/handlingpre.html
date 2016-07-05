@@ -1,10 +1,3 @@
-@extends('main.main')
-
-
-
-@section('body_right')
-
-
 <div class="">
     <div class="page-title">
 
@@ -44,11 +37,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <table class="table table-striped responsive-utilities jambo_table">
+                    <table class="table table-striped responsive-utilities jambo_table" cellspacing="0" width="100%">
                         <thead>
                             <tr class="headings">
-                                
-                                <th>Mã BN </th>
+
+                                <th>STT</th>
                                 <th>Tên bệnh nhân</th>
                                 <th>Thời gian nhận</th>
                                 <th>Địa điểm nhận</th>
@@ -57,51 +50,30 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <?php foreach ($model as $value) {
-                                ?>
-                                
-                                <tr class="even pointer">
-                                    
-                                    <td class="col-md-2 col-sm-2 col-xs-2">{{ $value->maBn }}</td>
-                                    <td class=" ">{{ $value->name}} <i class="success fa fa-long-arrow-up"></i>
-                                        <td class=" ">{{ $value->created_at}}</td>
-                                    </td>
-                                    <td class="col-md-3 col-sm-3 col-xs-3">Tại quầy</td>
-                                    <td class="">
-                                        <button type="button" class="btn btn-primary" onclick="location.href='{{url('/cho-xu-ly/')}}/{{ $value->id }}';">Đáp ứng</button>
-                                        <button type="button" class="btn btn-warning" onclick="location.href='{{url('/cho-xu-ly/xoa/')}}/{{ $value->id }}';">Không đáp ứng</button>
-                                    </td>
-
-                                </tr>
-                                
-                                <?php } ?>
-                            </tbody>
-
-                        </table>
-                    </div>
+                        <tbody ng-repeat="pre in handlingpre">
+                            <tr class="even pointer">
+                                <td class="col-md-1 col-sm-1 col-xs-1">{{$index + 1}}</td>
+                                <td class=" ">{{ pre.name}} <i class="success fa fa-long-arrow-up"></i>
+                                    <td class=" ">{{ pre.created_at}}</td>
+                                </td>
+                                <td class="col-md-3 col-sm-3 col-xs-3">Tại quầy</td>
+                                <td class="">
+                                    <a class="btn btn-primary" href="#drugimport/{{pre._id}}">Xử lý</a>
+                                    <button type="button" class="btn btn-warning" ng-click="cancel(pre._id) ">Không đáp ứng</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-
-            <br />
-            <br />
-            <br />
-
         </div>
+
+        <br />
+        <br />
+        <br />
+
     </div>
-    <!-- footer content -->
-    <footer>
-        
-        <div class="clearfix"></div>
-    </footer>
-    <!-- /footer content -->
-    
 </div>
-<!-- /page content -->
-
-@stop
 
 
-@section('import_js')
-
-@stop
+</div>

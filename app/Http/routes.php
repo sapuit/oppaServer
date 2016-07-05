@@ -6,11 +6,11 @@ Route::group(['middleware' => ['web']], function () {
 	Route::auth();
 	
 	// API Android client
-	Route::post('prescription/post-image', 'PrescriptionApi@getRequestImg');
-	Route::post('prescription/post-drugs', 'PrescriptionApi@getRequestList');
-	Route::post('prescription/conform', 'PrescriptionApi@getConform');
+	Route::post('prescription/post-image', 	'PrescriptionApi@getRequestImg');
+	Route::post('prescription/post-drugs', 	'PrescriptionApi@getRequestList');
+	Route::post('prescription/conform', 	'PrescriptionApi@getConform');
 
-	// Route::get('prescription', 'Prescription@showAll');
+	Route::get('prescription', 'Prescription@showAll');
     Route::get('prescription/insert', 	
 	['as' => 'insert' , 'uses' => 'Prescription@insertForm']);
 	Route::post('prescription/insert',
@@ -24,7 +24,7 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => ['web', 'auth']], function () {
 	
-	Route::get('/', 'Home@index');
+	// Route::get('/', 'Home@index');
 
 	//	Hiển thị toa thuốc
 	Route::get('/don-thuoc-moi', 'Prescription@showAll');
@@ -43,6 +43,24 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 	Route::get('/giao-nhan', 'PrescriptionOrder@showAll');
 	Route::get('/hoan-thanh', 'PrescriptionFinish@showAll');
 
+	Route::get('/', function(){
+		return view('main');
+	});
+
+	Route::get('/api/v1/notif', 'notification@notif');
+	Route::get('/api/v1/newpre', 'adminAPI@newpre');
+	Route::get('/api/v1/newpre/cancel/{id}', 'adminAPI@newpreCancel');
+	Route::get('/api/v1/newpre/can/{id}', 'adminAPI@newpreCan');
+
+	Route::get('/api/v1/handlingpre', 'adminAPI@handlingpre');
+	Route::get('/api/v1/handlingpre/cancel/{id}', 'adminAPI@handlingpreCancel');
+	Route::get('/api/v1/handlingpre/can/{id}', 'adminAPI@handlingpreCan');
+
+	Route::get('/api/v1/confirm', 'adminAPI@confirm');
+	Route::get('/api/v1/get-pre/{id}', 'adminAPI@getPre');
+	Route::post('/api/v1/drug-import', 'adminAPI@drugImport');
+
+	Route::get('/api/v1/ship', 'adminAPI@ship');
 });
 
 

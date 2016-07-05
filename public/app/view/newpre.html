@@ -1,0 +1,169 @@
+<div class="">
+    <div class="page-title">
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-left top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a href="#"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Settings 1</a>
+                                </li>
+                                <li><a href="#">Settings 2</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-striped responsive-utilities jambo_table">
+                        <thead>
+                            <tr class="headings">
+
+                                <th>STT</th>
+                                <th>Tên bệnh nhân</th>
+                                <th>Thời gian nhận</th>
+                                <th>Địa điểm nhận</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody ng-repeat="pre in newpre">
+                            <tr class="even" ng-click="show(pre._id)">
+
+                                <td class="col-md-1 col-sm-1 col-xs-1">{{$index + 1}}</td>
+                                <td class=" ">{{ pre.name}} <i class="success fa fa-long-arrow-up"></i>
+                                    <td class=" ">{{ pre.created_at}}</td>
+                                </td>
+                                <td class="">Tại quầy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+    </div>
+    <div class="modal fade" id="newpreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="col-md-10">
+        <div class="modal-dialog" style="width:60%">
+            <div class="modal-content">
+                <div class="modal-header" style="background:#3F5367; color:#FFF;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Thông tin đơn thuốc</h4>
+                </div>
+                <div class="modal-body" style="padding:20px 45px">
+                    <!-- star content -->
+                    <div class="row">
+
+                        <div class="well col-md-6 col-sm-6 col-xs-6">
+                            <p><b>Tên Bệnh nhân:</b> {{pre.name}}</p>
+                            <p><b>Số điện thoại:</b> {{pre.phone}}</p>
+                            <p><b>Địa chỉ:</b> {{pre.addr}}</p>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="toa-center">
+                                <img src="uploads/prescription/{{pre.image}}" alt="..." class="img-responsive center-block" />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- stop content -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="cancel(pre._id)" data-dismiss="modal">Yêu cầu lại</button>
+                    <button type="button" class="btn btn-primary" ng-click="can(pre._id) " data-dismiss="modal">Xử lý toa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newpreNotImgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="col-md-10">
+        <div class="modal-dialog" style="width:60%">
+            <div class="modal-content">
+                <div class="modal-header" style="background:#3F5367; color:#FFF;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Thông tin đơn thuốc</h4>
+                </div>
+                <div class="modal-body" style="padding:20px 45px">
+                    <!-- star content -->
+                    <div class="row">
+
+                        <div class="well col-md-6 col-sm-6 col-xs-6">
+                            <p><b>Tên Bệnh nhân:</b> {{pre.name}}</p>
+                            <p><b>Số điện thoại:</b> {{pre.phone}}</p>
+                            <p><b>Địa chỉ:</b> {{pre.addr}}</p>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="toa-center" style="width:100%; padding-bottom:20px">
+                                <table id="tbdrug" class="authors-list table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">Stt</th>
+                                            <th class="col-md-1">Tên thuốc</th>
+                                            <th class="col-md-1">Giá</th>
+                                            <th class="col-md-1">Số lượng</th>
+                                            <th class="col-md-5 col-sm-5 col-xs-5">Thành tiền</th>
+                                            <th class="col-md-1 col-sm-1 col-xs-1 text-center"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="drug in pre.drugs">
+                                            <td>{{$index + 1}}</td>
+                                            <td>{{drug.name}}</td>
+                                            <td>____</td>
+                                            <td>{{drug.quantity}}</td>
+                                            <td>_____</td>
+                                            <td class="text-center">
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- stop content -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" ng-click="cancel(pre._id)" data-dismiss="modal">Yêu cầu lại</button>
+                    <button type="button" class="btn btn-primary" ng-click="can(pre._id) " data-dismiss="modal">Xử lý toa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="public/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    var t = $('#tbdrug').DataTable({
+        "bPaginate": false
+    });
+</script>

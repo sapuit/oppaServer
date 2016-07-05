@@ -47,7 +47,7 @@ class GCM{
 
         $headers = array(
             // 'Authorization: key=' . GOOGLE_API_KEY,
-            'Authorization: key=AIzaSyBxyLumHDferPj6ZH_epbhg97tkvTtsPJ4',
+            'Authorization: key=AIzaSyDNIvoDMw1s81NVnZqahr2oQlwI5eiGEfY',
             'Content-Type: application/json'
         );
         // Open connection

@@ -1,0 +1,278 @@
+<div class="">
+    <div class="page-title">
+
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-left top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{ pre.name }} </h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a href="#"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+                        </li>
+                        <li><a href="#"><i class="fa fa-close"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- stop head text       -->
+                <!-- star content -->
+
+                <div class="well col-md-6 col-sm-6 col-xs-6">
+
+                    <div class="hovereffect col-md-4 col-sm-4 col-xs-4">
+                        <a class="thumbnail" href="#thumb">
+                            <img src="uploads/prescription/{{pre.image}}" class="thumbnail img-thumbnail" alt="Cinque Terre" width="250" height="350">
+                            <span><img src="uploads/prescription/{{pre.image}}" height="550"/><br />Simply beautiful.</span>
+                        </a>
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-xs-8">
+                        <p><b>Mã Bệnh nhân:</b> {{pre.maBn}}</p>
+                        <p><b>Số điện thoại:</b> {{pre.phone}}</p>
+                        <p><b>Địa chỉ:</b> {{pre.addr}}</p>
+                        <input type="hidden" id="drugs" value="{{pre.drugs}}">
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="toa-center2 col-md-10 col-sm-10 col-xs-10 well">
+                        <div>
+                            <table id="tbdrug" class="authors-list table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Stt</th>
+                                        <th>Tên thuốc</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th class="col-md-2 col-sm-2 col-xs-2">Thành tiền</th>
+                                        <th class="col-md-1 col-sm-1 col-xs-1 text-center"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="stt1"></td>
+                                        <td><input type='text' class="form-control" id='drug' /></td>
+                                        <td><input type='text' class="form-control" id='price' onkeyup="drugImport(event)" /></td>
+                                        <td><input type='text' class="form-control" id='count' onkeyup="drugImport(event)" style="width:50%" /></td>
+                                        <td id='total'>.000 vnđ</td>
+                                        <td class="text-center">
+                                            <button type='button' class="btn btn-primary btn-sm" onclick="addDrug()"><span class="fa fa-plus"></span></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="stt1">___</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align:right"><b>Thành tiền:</b></td>
+                                        <td id='totals' ng-model="arrDrug.totals">.000 vnđ</td>
+                                        <td class="col-md-2 text-center">
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="addInfor();" style="float: right;"><b>Xuất toa</b></button>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- stop content -->
+            </div>
+        </div>
+
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="col-md-10">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header well">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><b>Hẹn lấy thuốc:</b> </h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <label for="place">Địa điểm nhận thuốc:</label>
+                    <input type="text" class="form-control" id="place" ng-model="arrDrug.place">
+                </p>
+                <p>
+                    <label for="time">Thời gian nhận thuốc:</label>
+                    <input type="text" class="form-control" id="time" ng-model="arrDrug.time">
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Quay lại</button>
+                <button type="button" ng-click="exportPre()" class="btn btn-primary btn-sm" style="margin-bottom: 5px;" data-dismiss="modal">
+                Xuất toa
+            </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- end modal -->
+</div>
+<script type="text/javascript" src="public/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    var t = $('#tbdrug').DataTable({
+        "bPaginate": false
+    });
+    var counter = 1;
+
+    // truong hop da co list drug
+    var dataDrug;
+    setTimeout(function() {
+        dataDrug = document.getElementById('drugs').value;
+        dataDrug = $.parseJSON(dataDrug);
+        console.log(dataDrug);
+        $.each(dataDrug, function(name, druged) {
+            t.row.add([
+                counter,
+                druged.name,
+                '<input type="text" onkeyup="addPrice(this)" class="form-control" />',
+                druged.quantity,
+                '0 VNĐ',
+                '<div style="text-align:center;"><button type="button" class="btn btn-danger btn-sm" style="margin: 0 auto;">' +
+                '<span class="glyphicon glyphicon-trash"></span>' +
+                '</button></div>'
+            ]).draw(false);
+            formatform();
+            totals();
+            counter++;
+        });
+    },1000);
+
+    // them gia thuoc
+    function addPrice(value){
+        var rowInd = value.parentNode.parentNode.rowIndex;
+        var quantity = document.getElementById("tbdrug").rows[rowInd].cells[2].children[0].value;
+        var cost = document.getElementById("tbdrug").rows[rowInd].cells[3].innerHTML;
+        var total = quantity*cost;
+        total = formatNum(total);
+        document.getElementById("tbdrug").rows[rowInd].cells[4].innerHTML = total + ' VNĐ';
+        totals();
+    }
+    
+    $('#tbdrug tbody').on('click', 'button.btn-danger', function() {
+        t
+            .row($(this).parents('tr'))
+            .remove()
+            .draw();
+        counter--;
+        for (var i = 1; i < counter; i++) {
+            document.getElementById("tbdrug").rows[i + 1].cells[0].innerHTML = i;
+        }
+        totals();
+    });
+
+    // $('#tbdrug tbody').on('click', 'button.edit', function() {
+    //     alert('Row index: ' + t.row($(this).index()));
+    //     console.log(t.row($(this).index()));
+    // });
+
+    function drugImport(e) {
+        var drug = $('#drug').val();
+        var price = $('#price').val();
+        var count = $('#count').val();
+        var total = price * count;
+        var key = e.which || e.keyCode;
+        if(key >= 48)
+        if (key === 13) {
+            t.row.add([
+                counter,
+                drug,
+                formatNum(price) + ' VNĐ',
+                count,
+                formatNum(total) + ' VNĐ',
+                '<div style="text-align:center;"><button type="button" class="btn btn-danger btn-sm" style="margin: 0 auto;">' +
+                '<span class="glyphicon glyphicon-trash"></span>' +
+                '</button></div>'
+            ]).draw(false);
+            formatform();
+            totals();
+            counter++;
+        } else if(key >= 48 && key <= 57){
+            $('#total').html(formatNum(total) + ' VNĐ');
+        }else{
+            toastr.error('Vui lòng nhập số cho cột "giá thuốc" và "số lượng"',"Lỗi nhập vào!");
+        }
+    }
+
+    // auto tinh tien
+    function totals() {
+        var length = document.getElementById("tbdrug").rows.length;
+        var totals = 0;
+        for (var i = 2; i < length - 1; i++) {
+            var total = document.getElementById("tbdrug").rows[i].cells[4].innerHTML;
+            total = total.replace(/\./g, "");
+            total = total.replace(" VNĐ", "");
+            total = Number(total);
+            totals += total;
+        }
+        totals = formatNum(totals);
+        $('#totals').html(totals + ' VNĐ');
+    }
+
+    function addDrug() {
+        var drug = $('#drug').val();
+        var price = $('#price').val();
+        var count = $('#count').val();
+        var total = price * count;
+        t.row.add([
+            counter,
+            drug,
+            formatNum(price) + ' VNĐ',
+            count,
+            formatNum(total) + ' VNĐ',
+            '<div style="text-align:center;"><button type="button" class="btn btn-danger btn-sm" style="margin: 0 auto;">' +
+            '<span class="glyphicon glyphicon-trash"></span>' +
+            '</button></div>'
+        ]).draw(false);
+        formatform();
+        totals();
+        counter++;
+    }
+
+    function deleteRow(s) {
+        // document.getElementById("tbdrug").deleteRow(s+1);
+    }
+
+    function autoformat() {
+        var price = +$('#price').val();
+        price = formatNum(price);
+        $('#price').val(price + ' VNĐ');
+    }
+
+    function formatform() {
+        $('#drug').val('');
+        $('#price').val('');
+        $('#count').val('');
+        $('#total').html('.000 VNĐ');
+    }
+
+    function formatNum(num) {
+        num = parseInt(num);
+        var p = num.toFixed(2).split(".");
+        return p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+            return num + (i && !(i % 3) ? "." : "") + acc;
+        }, "");
+    }
+</script>
