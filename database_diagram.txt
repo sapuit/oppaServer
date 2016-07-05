@@ -111,4 +111,3 @@ status :
 - Nhận phản hồi
 	0	: hủy đơn thuốc
 	1	: Chờ giao toa 
-
