@@ -1,7 +1,7 @@
 Mô tả dữ liệu : 
 1. Bảng Prescription 
 {
-	id 		: PRESCRIPTION_ID, 
+	id 	: PRESCRIPTION_ID, 
 	name 	: USER_NAME,
 	phone 	: USER_PHONE_NUMBER,
 	addr 	: USER_ADDRESS,
@@ -13,14 +13,14 @@ Mô tả dữ liệu :
 	creater_at : date,
 	drugs 	: [
 		{
-			id 			: DRUG_ID,
+			id 		: DRUG_ID,
 			name		: DRUG_NAME, 
 			quantity	: DRUG_QUANTITY, 
 			cost		: DRUG_COST, 
 			total 		: DRUG_TOTAL 
 		}
 		{
-			id 			: DRUG_ID,
+			id 		: DRUG_ID,
 			name		: DRUG_NAME, 
 			quantity	: DRUG_QUANTITY, 
 			cost		: DRUG_COST, 
@@ -104,6 +104,10 @@ status :
 }
 
 6. Request client gửi lên.
+{
+	id : ID_PRESCRIPTION,
+	flag : FLAG
+}
 - Nhận phản hồi
 	0	: hủy đơn thuốc
 	1	: Chờ giao toa 
